@@ -37,12 +37,13 @@
                     ?>
                 </div>
 
+                <!-- Menu toggle is a sibling of navigation so it remains visible on mobile -->
+                <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
+                    <span class="menu-toggle-icon"><span></span></span>
+                    <span class="screen-reader-text"><?php esc_html_e('Menu', 'ayan-modern'); ?></span>
+                </button>
+
                 <nav id="site-navigation" class="main-navigation">
-                    <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
-                        <span class="menu-toggle-icon"></span>
-                        <span class="screen-reader-text"><?php esc_html_e('Menu', 'ayan-modern'); ?></span>
-                    </button>
-                    
                     <?php
                     wp_nav_menu(array(
                         'theme_location' => 'primary',
