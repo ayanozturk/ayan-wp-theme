@@ -63,13 +63,13 @@
 					
 					<!-- Regular Posts -->
 					<section class="posts-section">
-						<div class="posts-grid">
+						<div class="posts-grid posts-grid--square">
 							<?php while (have_posts()) : the_post(); ?>
 								<article id="post-<?php the_ID(); ?>" <?php post_class('post-card'); ?>>
 									<?php if (has_post_thumbnail()) : ?>
-										<div class="post-image">
+										<div class="post-image post-image--square">
 											<a href="<?php the_permalink(); ?>">
-												<?php the_post_thumbnail('ayan-modern-thumbnail'); ?>
+												<?php the_post_thumbnail('ayan-modern-square'); ?>
 											</a>
 										</div>
 									<?php endif; ?>

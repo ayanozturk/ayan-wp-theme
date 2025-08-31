@@ -53,6 +53,7 @@ function ayan_modern_setup() {
     // Add image sizes
     add_image_size('ayan-modern-featured', 800, 400, true);
     add_image_size('ayan-modern-thumbnail', 400, 250, true);
+    add_image_size('ayan-modern-square', 600, 600, true);
 }
 add_action('after_setup_theme', 'ayan_modern_setup');
 
