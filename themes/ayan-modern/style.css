@@ -697,6 +697,11 @@ body.nav-open {
   border-color: var(--primary-color);
 }
 
+/* Comments pagination */
+.comments-pagination {
+  margin-top: 1.5rem;
+}
+
 /* Search form */
 .search-form {
   display: flex;
