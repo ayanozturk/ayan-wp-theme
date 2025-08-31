@@ -882,6 +882,20 @@ img {
 .posts-grid--square {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
+.post-card--featured {
+  grid-column: span 2;
+}
+.post-image--featured {
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
+}
+.post-image--featured img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 .post-image--square {
   aspect-ratio: 1 / 1;
   overflow: hidden;

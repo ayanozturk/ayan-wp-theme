@@ -65,11 +65,12 @@
 					<section class="posts-section">
 						<div class="posts-grid posts-grid--square">
 							<?php while (have_posts()) : the_post(); ?>
-								<article id="post-<?php the_ID(); ?>" <?php post_class('post-card'); ?>>
+								<?php $is_featured = (0 === $wp_query->current_post) && !is_paged(); ?>
+								<article id="post-<?php the_ID(); ?>" <?php post_class('post-card' . ($is_featured ? ' post-card--featured' : '')); ?>>
 									<?php if (has_post_thumbnail()) : ?>
-										<div class="post-image post-image--square">
+										<div class="post-image <?php echo $is_featured ? 'post-image--featured' : 'post-image--square'; ?>">
 											<a href="<?php the_permalink(); ?>">
-												<?php the_post_thumbnail('ayan-modern-square'); ?>
+												<?php echo $is_featured ? get_the_post_thumbnail(get_the_ID(), 'ayan-modern-featured') : get_the_post_thumbnail(get_the_ID(), 'ayan-modern-square'); ?>
 											</a>
 										</div>
 									<?php endif; ?>
