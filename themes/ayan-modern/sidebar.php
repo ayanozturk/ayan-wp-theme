@@ -1,19 +1,24 @@
 <aside id="secondary" class="sidebar">
     <!-- Search Widget -->
+    <?php if ( get_theme_mod('ayan_modern_sidebar_show_search', true) ) : ?>
     <section class="widget widget_search">
         <h2 class="widget-title">Search</h2>
         <?php get_search_form(); ?>
     </section>
+    <?php endif; ?>
 
     <!-- About Widget -->
+    <?php if ( get_theme_mod('ayan_modern_sidebar_show_about', true) ) : ?>
     <section class="widget widget_about">
         <h2 class="widget-title">About</h2>
         <div class="about-content">
-            <p>Welcome to my personal blog where I share thoughts on technology, programming, photography, and life. I'm passionate about creating meaningful content and connecting with fellow developers and creatives.</p>
+            <p><?php echo wp_kses_post( get_theme_mod('ayan_modern_sidebar_about', "Welcome to my personal blog where I share thoughts on technology, programming, photography, and life. I'm passionate about creating meaningful content and connecting with fellow developers and creatives.") ); ?></p>
         </div>
     </section>
+    <?php endif; ?>
 
     <!-- Recent Posts Widget -->
+    <?php if ( get_theme_mod('ayan_modern_sidebar_show_recent', true) ) : ?>
     <section class="widget widget_recent_entries">
         <h2 class="widget-title">Recent Posts</h2>
         <ul>
@@ -34,8 +39,10 @@
             <?php endforeach; ?>
         </ul>
     </section>
+    <?php endif; ?>
 
     <!-- Categories Widget -->
+    <?php if ( get_theme_mod('ayan_modern_sidebar_show_categories', true) ) : ?>
     <section class="widget widget_categories">
         <h2 class="widget-title">Categories</h2>
         <ul>
@@ -57,8 +64,10 @@
             <?php endforeach; ?>
         </ul>
     </section>
+    <?php endif; ?>
 
     <!-- Tags Widget -->
+    <?php if ( get_theme_mod('ayan_modern_sidebar_show_tags', true) ) : ?>
     <section class="widget widget_tag_cloud">
         <h2 class="widget-title">Popular Tags</h2>
         <div class="tag-cloud">
@@ -85,15 +94,16 @@
             ?>
         </div>
     </section>
+    <?php endif; ?>
 
     <!-- Social Links Widget -->
     <?php
-    // Check if any social media links are configured
+    // Check if any social media links are configured and section enabled
     $has_social_links = get_theme_mod('ayan_modern_twitter') || 
                       get_theme_mod('ayan_modern_github') || 
                       get_theme_mod('ayan_modern_linkedin');
     
-    if ($has_social_links) :
+    if ( get_theme_mod('ayan_modern_sidebar_show_social', true) && $has_social_links ) :
     ?>
     <section class="widget widget_social">
         <h2 class="widget-title">Follow Me</h2>
@@ -128,15 +138,4 @@
     </section>
     <?php endif; ?>
 
-    <!-- Newsletter Widget -->
-    <section class="widget widget_newsletter">
-        <h2 class="widget-title">Newsletter</h2>
-        <div class="newsletter-content">
-            <p>Subscribe to get notified about new posts and updates.</p>
-            <form class="newsletter-form" action="#" method="post">
-                <input type="email" name="email" placeholder="Your email address" required>
-                <button type="submit" class="newsletter-submit">Subscribe</button>
-            </form>
-        </div>
-    </section>
 </aside>

@@ -332,6 +332,85 @@ function ayan_modern_customize_register($wp_customize) {
         'section' => 'ayan_modern_content',
         'type'    => 'checkbox',
     ));
+
+    // Sidebar About text
+    $wp_customize->add_setting('ayan_modern_sidebar_about', array(
+        'default'           => "Welcome to my personal blog where I share thoughts on technology, programming, photography, and life. I'm passionate about creating meaningful content and connecting with fellow developers and creatives.",
+        'sanitize_callback' => 'wp_kses_post',
+    ));
+
+    $wp_customize->add_control('ayan_modern_sidebar_about', array(
+        'label'       => __('Sidebar About Text', 'ayan-modern'),
+        'description' => __('Appears in the About widget in the sidebar. Supports basic HTML.', 'ayan-modern'),
+        'section'     => 'ayan_modern_content',
+        'type'        => 'textarea',
+    ));
+
+    // Sidebar visibility controls
+    $wp_customize->add_section('ayan_modern_sidebar', array(
+        'title'    => __('Sidebar', 'ayan-modern'),
+        'priority' => 36,
+    ));
+
+    $wp_customize->add_setting('ayan_modern_sidebar_show_search', array(
+        'default'           => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+    $wp_customize->add_control('ayan_modern_sidebar_show_search', array(
+        'label'   => __('Show Search', 'ayan-modern'),
+        'section' => 'ayan_modern_sidebar',
+        'type'    => 'checkbox',
+    ));
+
+    $wp_customize->add_setting('ayan_modern_sidebar_show_about', array(
+        'default'           => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+    $wp_customize->add_control('ayan_modern_sidebar_show_about', array(
+        'label'   => __('Show About', 'ayan-modern'),
+        'section' => 'ayan_modern_sidebar',
+        'type'    => 'checkbox',
+    ));
+
+    $wp_customize->add_setting('ayan_modern_sidebar_show_recent', array(
+        'default'           => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+    $wp_customize->add_control('ayan_modern_sidebar_show_recent', array(
+        'label'   => __('Show Recent Posts', 'ayan-modern'),
+        'section' => 'ayan_modern_sidebar',
+        'type'    => 'checkbox',
+    ));
+
+    $wp_customize->add_setting('ayan_modern_sidebar_show_categories', array(
+        'default'           => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+    $wp_customize->add_control('ayan_modern_sidebar_show_categories', array(
+        'label'   => __('Show Categories', 'ayan-modern'),
+        'section' => 'ayan_modern_sidebar',
+        'type'    => 'checkbox',
+    ));
+
+    $wp_customize->add_setting('ayan_modern_sidebar_show_tags', array(
+        'default'           => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+    $wp_customize->add_control('ayan_modern_sidebar_show_tags', array(
+        'label'   => __('Show Tags', 'ayan-modern'),
+        'section' => 'ayan_modern_sidebar',
+        'type'    => 'checkbox',
+    ));
+
+    $wp_customize->add_setting('ayan_modern_sidebar_show_social', array(
+        'default'           => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+    $wp_customize->add_control('ayan_modern_sidebar_show_social', array(
+        'label'   => __('Show Social Links', 'ayan-modern'),
+        'section' => 'ayan_modern_sidebar',
+        'type'    => 'checkbox',
+    ));
 }
 add_action('customize_register', 'ayan_modern_customize_register');
 
