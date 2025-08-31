@@ -792,6 +792,32 @@ img {
   cursor: pointer;
 }
 
+/* Block style variants */
+.is-style-rounded img,
+.wp-block-image.is-style-rounded img {
+  border-radius: var(--radius-lg);
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link,
+.is-style-outline .wp-block-button__link {
+  background: transparent;
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
+}
+.wp-block-button.is-style-outline .wp-block-button__link:hover,
+.is-style-outline .wp-block-button__link:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.wp-block-quote.is-style-card,
+.is-style-card.wp-block-quote {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+
 .btn-primary {
   background: var(--primary-color);
   color: white;

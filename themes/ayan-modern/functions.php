@@ -82,6 +82,38 @@ function ayan_modern_scripts() {
 add_action('wp_enqueue_scripts', 'ayan_modern_scripts');
 
 /**
+ * Register custom block styles
+ */
+function ayan_modern_register_block_styles() {
+    // Ensure main stylesheet is the handle used for block styles
+    $style_handle = 'ayan-modern-style';
+
+    // Image: Rounded corners
+    if (function_exists('register_block_style')) {
+        register_block_style('core/image', array(
+            'name'         => 'rounded',
+            'label'        => __('Rounded', 'ayan-modern'),
+            'style_handle' => $style_handle,
+        ));
+
+        // Button: Outline variant
+        register_block_style('core/button', array(
+            'name'         => 'outline',
+            'label'        => __('Outline', 'ayan-modern'),
+            'style_handle' => $style_handle,
+        ));
+
+        // Quote: Card style
+        register_block_style('core/quote', array(
+            'name'         => 'card',
+            'label'        => __('Card', 'ayan-modern'),
+            'style_handle' => $style_handle,
+        ));
+    }
+}
+add_action('init', 'ayan_modern_register_block_styles');
+
+/**
  * Register widget areas
  */
 function ayan_modern_widgets_init() {
