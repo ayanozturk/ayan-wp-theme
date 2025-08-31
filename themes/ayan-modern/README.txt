@@ -5,6 +5,7 @@ Tested up to: 6.6
 Requires PHP: 7.4
 License: MIT
 License URI: https://opensource.org/licenses/MIT
+Copyright: 2025 Ayan Ozturk
 
 Modern, clean classic theme focused on readability and performance.
 
