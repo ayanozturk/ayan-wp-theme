@@ -884,17 +884,15 @@ img {
 }
 .post-card--featured {
   grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
 }
-.post-image--featured {
-  width: 100%;
-  aspect-ratio: 2 / 1;
-  overflow: hidden;
-}
-.post-image--featured img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+
+@media (max-width: 900px) {
+  .post-card--featured {
+    grid-template-columns: 1fr;
+  }
 }
 .post-image--square {
   aspect-ratio: 1 / 1;
