@@ -56,14 +56,18 @@ add_action('after_setup_theme', 'ayan_modern_setup');
  * Enqueue scripts and styles
  */
 function ayan_modern_scripts() {
+    // Use theme version for cache-busting
+    $theme      = wp_get_theme();
+    $version    = $theme ? $theme->get('Version') : null;
+
     // Enqueue main stylesheet
-    wp_enqueue_style('ayan-modern-style', get_stylesheet_uri(), array(), '1.0.0');
+    wp_enqueue_style('ayan-modern-style', get_stylesheet_uri(), array(), $version);
     
     // Enqueue Google Fonts
     wp_enqueue_style('ayan-modern-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap', array(), null);
     
     // Enqueue main JavaScript
-    wp_enqueue_script('ayan-modern-script', get_template_directory_uri() . '/assets/js/main.js', array(), '1.0.0', true);
+    wp_enqueue_script('ayan-modern-script', get_template_directory_uri() . '/assets/js/main.js', array(), $version, true);
     
     // Enqueue comment reply script
     if (is_singular() && comments_open() && get_option('thread_comments')) {
