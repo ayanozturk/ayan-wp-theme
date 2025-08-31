@@ -14,6 +14,7 @@
 
 <div id="page" class="site">
     <header id="masthead" class="site-header">
+        <a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e('Skip to content', 'ayan-modern'); ?></a>
         <div class="container">
             <div class="header-content">
                 <div class="site-branding">
@@ -37,25 +38,26 @@
                     ?>
                 </div>
 
-                <!-- Menu toggle is a sibling of navigation so it remains visible on mobile -->
-                <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
-                    <span class="menu-toggle-icon"><span></span></span>
-                    <span class="screen-reader-text"><?php esc_html_e('Menu', 'ayan-modern'); ?></span>
-                </button>
-
-                <nav id="site-navigation" class="main-navigation">
-                    <?php
-                    wp_nav_menu(array(
-                        'theme_location' => 'primary',
-                        'menu_id'        => 'primary-menu',
-                        'menu_class'     => 'nav-menu',
-                        'container'      => false,
-                        'fallback_cb'    => 'ayan_modern_fallback_menu',
-                    ));
-                    ?>
-                </nav>
+                <div class="header-actions">
+                    <?php get_search_form(); ?>
+                    <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="<?php esc_attr_e('Toggle menu', 'ayan-modern'); ?>">
+                        <span class="menu-toggle-icon"><span></span></span>
+                        <span class="screen-reader-text"><?php esc_html_e('Menu', 'ayan-modern'); ?></span>
+                    </button>
+                </div>
             </div>
         </div>
+        <nav id="site-navigation" class="main-navigation" aria-label="<?php esc_attr_e('Primary', 'ayan-modern'); ?>">
+        <?php
+            wp_nav_menu(array(
+                'theme_location' => 'primary',
+                'menu_id'        => 'primary-menu',
+                'menu_class'     => 'nav-menu',
+                'container'      => false,
+                'fallback_cb'    => 'ayan_modern_fallback_menu',
+            ));
+            ?>
+        </nav>
     </header>
 
     <!-- Optional: Small welcome section for homepage only -->
