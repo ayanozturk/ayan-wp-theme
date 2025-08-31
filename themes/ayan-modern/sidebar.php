@@ -1,4 +1,4 @@
-<aside id="secondary" class="sidebar">
+<aside id="secondary" class="sidebar" role="complementary">
     <!-- Search Widget -->
     <?php if ( get_theme_mod('ayan_modern_sidebar_show_search', true) ) : ?>
     <section class="widget widget_search">
@@ -138,4 +138,7 @@
     </section>
     <?php endif; ?>
 
+    <?php if (is_active_sidebar('sidebar-1')) : ?>
+        <?php dynamic_sidebar('sidebar-1'); ?>
+    <?php endif; ?>
 </aside>

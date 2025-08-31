@@ -16,6 +16,7 @@ if (!defined('ABSPATH')) {
  */
 function ayan_modern_setup() {
     // Add theme support for various features
+    add_theme_support('automatic-feed-links');
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
     add_theme_support('html5', array(
@@ -39,6 +40,9 @@ function ayan_modern_setup() {
     add_theme_support('align-wide');
     add_theme_support('editor-styles');
     add_theme_support('dark-editor-style');
+
+    // Load translations
+    load_theme_textdomain('ayan-modern', get_template_directory() . '/languages');
 
     // Register navigation menus
     register_nav_menus(array(
@@ -418,28 +422,7 @@ function ayan_modern_customize_register($wp_customize) {
 }
 add_action('customize_register', 'ayan_modern_customize_register');
 
-/**
- * Security enhancements
- */
-function ayan_modern_security_headers() {
-    // Remove WordPress version from head
-    remove_action('wp_head', 'wp_generator');
-    
-    // Remove Windows Live Writer manifest
-    remove_action('wp_head', 'wlwmanifest_link');
-    
-    // Remove RSD link
-    remove_action('wp_head', 'rsd_link');
-    
-    // Remove shortlink
-    remove_action('wp_head', 'wp_shortlink_wp_head');
-}
-add_action('init', 'ayan_modern_security_headers');
-
-/**
- * Disable XML-RPC
- */
-add_filter('xmlrpc_enabled', '__return_false');
+// Removed plugin-territory head cleanup and XML-RPC disabling per Theme Review guidelines
 
 /**
  * Add custom image sizes to media library
@@ -482,32 +465,7 @@ function ayan_modern_schema_markup() {
 }
 add_action('wp_head', 'ayan_modern_schema_markup');
 
-/**
- * Add custom post types for portfolio/projects
- */
-function ayan_modern_custom_post_types() {
-    // Projects post type
-    register_post_type('project', array(
-        'labels' => array(
-            'name' => 'Projects',
-            'singular_name' => 'Project',
-            'add_new' => 'Add New Project',
-            'add_new_item' => 'Add New Project',
-            'edit_item' => 'Edit Project',
-            'new_item' => 'New Project',
-            'view_item' => 'View Project',
-            'search_items' => 'Search Projects',
-            'not_found' => 'No projects found',
-            'not_found_in_trash' => 'No projects found in trash',
-        ),
-        'public' => true,
-        'has_archive' => true,
-        'supports' => array('title', 'editor', 'thumbnail', 'excerpt'),
-        'menu_icon' => 'dashicons-portfolio',
-        'rewrite' => array('slug' => 'projects'),
-    ));
-}
-add_action('init', 'ayan_modern_custom_post_types');
+// Removed custom post type registration (plugin territory)
 
 /**
  * Fallback menu function
@@ -521,11 +479,4 @@ function ayan_modern_fallback_menu() {
     echo '</ul>';
 }
 
-/**
- * Flush rewrite rules on theme activation
- */
-function ayan_modern_rewrite_flush() {
-    ayan_modern_custom_post_types();
-    flush_rewrite_rules();
-}
-add_action('after_switch_theme', 'ayan_modern_rewrite_flush');
+// Removed rewrite rules flush (was used for CPT registration)
