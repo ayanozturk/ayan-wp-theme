@@ -38,26 +38,24 @@
                     ?>
                 </div>
 
-                <div class="header-actions">
-                    <?php get_search_form(); ?>
-                    <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="<?php esc_attr_e('Toggle menu', 'ayan-modern'); ?>">
-                        <span class="menu-toggle-icon"><span></span></span>
-                        <span class="screen-reader-text"><?php esc_html_e('Menu', 'ayan-modern'); ?></span>
-                    </button>
-                </div>
+                <nav id="site-navigation" class="main-navigation" aria-label="<?php esc_attr_e('Primary', 'ayan-modern'); ?>">
+                <?php
+                    wp_nav_menu(array(
+                        'theme_location' => 'primary',
+                        'menu_id'        => 'primary-menu',
+                        'menu_class'     => 'nav-menu',
+                        'container'      => false,
+                        'fallback_cb'    => 'ayan_modern_fallback_menu',
+                    ));
+                    ?>
+                </nav>
+
+                <button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="<?php esc_attr_e('Toggle menu', 'ayan-modern'); ?>">
+                    <span class="menu-toggle-icon"><span></span></span>
+                    <span class="screen-reader-text"><?php esc_html_e('Menu', 'ayan-modern'); ?></span>
+                </button>
             </div>
         </div>
-        <nav id="site-navigation" class="main-navigation" aria-label="<?php esc_attr_e('Primary', 'ayan-modern'); ?>">
-        <?php
-            wp_nav_menu(array(
-                'theme_location' => 'primary',
-                'menu_id'        => 'primary-menu',
-                'menu_class'     => 'nav-menu',
-                'container'      => false,
-                'fallback_cb'    => 'ayan_modern_fallback_menu',
-            ));
-            ?>
-        </nav>
     </header>
 
     <!-- Optional: Small welcome section for homepage only -->
