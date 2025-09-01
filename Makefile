@@ -91,6 +91,7 @@ STYLE_FILE := $(THEME_DIR)/style.css
 show-version:
 	@awk -F': ' '/^Version:/ {print "Current version:", $$2}' $(STYLE_FILE)
 
+
 bump-major:
 	@set -e; \
 	file=$(STYLE_FILE); \
@@ -98,8 +99,8 @@ bump-major:
 	new=$$(printf "%s" "$$current" | awk -F. '{printf("%d.%d.%d", $$1+1, 0, 0)}'); \
 	awk -v ver="$$new" 'BEGIN{FS=OFS=": "} /^Version:/{$$2=ver} {print}' "$$file" > "$$file.tmp" && mv "$$file.tmp" "$$file"; \
 	git add "$$file"; git commit -m "chore: bump theme version to $$new"; \
-	zip -r $(THEME_DIR)-$$new.zip $(THEME_DIR) -x '**/.DS_Store' '**/.git/*' '**/.idea/*' '**/.vscode/*' | cat; \
-	echo "Bumped to $$new and packaged $(THEME_DIR)-$$new.zip"
+	cd themes && zip -r ayan-modern-$$new.zip ayan-modern -x '**/.DS_Store' '**/.git/*' '**/.idea/*' '**/.vscode/*' | cat; \
+	echo "Bumped to $$new and packaged themes/ayan-modern-$$new.zip"
 
 bump-minor:
 	@set -e; \
@@ -108,8 +109,8 @@ bump-minor:
 	new=$$(printf "%s" "$$current" | awk -F. '{printf("%d.%d.%d", $$1, $$2+1, 0)}'); \
 	awk -v ver="$$new" 'BEGIN{FS=OFS=": "} /^Version:/{$$2=ver} {print}' "$$file" > "$$file.tmp" && mv "$$file.tmp" "$$file"; \
 	git add "$$file"; git commit -m "chore: bump theme version to $$new"; \
-	zip -r $(THEME_DIR)-$$new.zip $(THEME_DIR) -x '**/.DS_Store' '**/.git/*' '**/.idea/*' '**/.vscode/*' | cat; \
-	echo "Bumped to $$new and packaged $(THEME_DIR)-$$new.zip"
+	cd themes && zip -r ayan-modern-$$new.zip ayan-modern -x '**/.DS_Store' '**/.git/*' '**/.idea/*' '**/.vscode/*' | cat; \
+	echo "Bumped to $$new and packaged themes/ayan-modern-$$new.zip"
 
 bump-patch:
 	@set -e; \
@@ -118,11 +119,11 @@ bump-patch:
 	new=$$(printf "%s" "$$current" | awk -F. '{p=$$3; if(p=="") p=0; printf("%d.%d.%d", $$1, $$2, p+1)}'); \
 	awk -v ver="$$new" 'BEGIN{FS=OFS=": "} /^Version:/{$$2=ver} {print}' "$$file" > "$$file.tmp" && mv "$$file.tmp" "$$file"; \
 	git add "$$file"; git commit -m "chore: bump theme version to $$new"; \
-	zip -r $(THEME_DIR)-$$new.zip $(THEME_DIR) -x '**/.DS_Store' '**/.git/*' '**/.idea/*' '**/.vscode/*' | cat; \
-	echo "Bumped to $$new and packaged $(THEME_DIR)-$$new.zip"
+	cd themes && zip -r ayan-modern-$$new.zip ayan-modern -x '**/.DS_Store' '**/.git/*' '**/.idea/*' '**/.vscode/*' | cat; \
+	echo "Bumped to $$new and packaged themes/ayan-modern-$$new.zip"
 
 package:
 	@version=$$(awk -F': ' '/^Version:/ {print $$2}' $(STYLE_FILE)); \
-	rm -f $(THEME_DIR)-$$version.zip; \
-	zip -r $(THEME_DIR)-$$version.zip $(THEME_DIR) -x '**/.DS_Store' '**/.git/*' '**/.idea/*' '**/.vscode/*' | cat; \
-	echo "Built package $(THEME_DIR)-$$version.zip"
+	rm -f themes/ayan-modern-$$version.zip; \
+	cd themes && zip -r ayan-modern-$$version.zip ayan-modern -x '**/.DS_Store' '**/.git/*' '**/.idea/*' '**/.vscode/*' | cat; \
+	echo "Built package themes/ayan-modern-$$version.zip"
