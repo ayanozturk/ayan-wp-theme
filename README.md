@@ -67,6 +67,20 @@ ayan-wp-theme/
 - **Restart services:** `docker-compose restart`
 - **Remove everything:** `docker-compose down -v`
 
+### Makefile Helpers (Theme versioning & packaging)
+
+From the repository root:
+
+```
+make show-version   # Print current theme version from themes/ayan-modern/style.css
+make bump-patch     # Increment patch (X.Y.Z -> X.Y.(Z+1)), commit and zip
+make bump-minor     # Increment minor (X.Y -> X.(Y+1).0), commit and zip
+make bump-major     # Increment major (X -> (X+1).0.0), commit and zip
+make package        # Zip current theme version without changing it
+```
+
+Zips are created alongside the `themes/ayan-modern/` directory, e.g. `themes/ayan-modern-1.4.0.zip`.
+
 ### Database Access
 
 - **phpMyAdmin:** http://localhost:8081

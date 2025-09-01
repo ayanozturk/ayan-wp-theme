@@ -91,34 +91,35 @@ STYLE_FILE := $(THEME_DIR)/style.css
 show-version:
 	@awk -F': ' '/^Version:/ {print "Current version:", $$2}' $(STYLE_FILE)
 
-define bump_version
-	@set -e; \
-	current=$$(awk -F': ' '/^Version:/ {print $$2}' $(STYLE_FILE)); \
-	IFS=.; set -- $$current; major=$$1; minor=$$2; patch=$${3:-0}; \
-	new="$(1)"; \
-	sed -i '' "s/^Version: .*/Version: $$new/" $(STYLE_FILE); \
-	git add $(STYLE_FILE); git commit -m "chore: bump theme version to $$new"; \
-	zip -r $(THEME_DIR)-$$new.zip $(THEME_DIR) -x '**/.DS_Store' '**/.git/*' '**/.idea/*' '**/.vscode/*' | cat; \
-	echo "Bumped to $$new and packaged $(THEME_DIR)-$$new.zip"
-endef
-
 bump-major:
 	@set -e; \
-	current=$$(awk -F': ' '/^Version:/ {print $$2}' $(STYLE_FILE)); \
-	IFS=.; set -- $$current; major=$$1; new_major=$$((major + 1)); \
-	$(call bump_version,$$new_major.0.0)
+	file=$(STYLE_FILE); \
+	current=$$(awk -F': ' '/^Version:/ {print $$2}' "$$file"); \
+	new=$$(printf "%s" "$$current" | awk -F. '{printf("%d.%d.%d", $$1+1, 0, 0)}'); \
+	awk -v ver="$$new" 'BEGIN{FS=OFS=": "} /^Version:/{$$2=ver} {print}' "$$file" > "$$file.tmp" && mv "$$file.tmp" "$$file"; \
+	git add "$$file"; git commit -m "chore: bump theme version to $$new"; \
+	zip -r $(THEME_DIR)-$$new.zip $(THEME_DIR) -x '**/.DS_Store' '**/.git/*' '**/.idea/*' '**/.vscode/*' | cat; \
+	echo "Bumped to $$new and packaged $(THEME_DIR)-$$new.zip"
 
 bump-minor:
 	@set -e; \
-	current=$$(awk -F': ' '/^Version:/ {print $$2}' $(STYLE_FILE)); \
-	IFS=.; set -- $$current; major=$$1; minor=$$2; new_minor=$$((minor + 1)); \
-	$(call bump_version,$$major.$$new_minor.0)
+	file=$(STYLE_FILE); \
+	current=$$(awk -F': ' '/^Version:/ {print $$2}' "$$file"); \
+	new=$$(printf "%s" "$$current" | awk -F. '{printf("%d.%d.%d", $$1, $$2+1, 0)}'); \
+	awk -v ver="$$new" 'BEGIN{FS=OFS=": "} /^Version:/{$$2=ver} {print}' "$$file" > "$$file.tmp" && mv "$$file.tmp" "$$file"; \
+	git add "$$file"; git commit -m "chore: bump theme version to $$new"; \
+	zip -r $(THEME_DIR)-$$new.zip $(THEME_DIR) -x '**/.DS_Store' '**/.git/*' '**/.idea/*' '**/.vscode/*' | cat; \
+	echo "Bumped to $$new and packaged $(THEME_DIR)-$$new.zip"
 
 bump-patch:
 	@set -e; \
-	current=$$(awk -F': ' '/^Version:/ {print $$2}' $(STYLE_FILE)); \
-	IFS=.; set -- $$current; major=$$1; minor=$$2; patch=$${3:-0}; new_patch=$$((patch + 1)); \
-	$(call bump_version,$$major.$$minor.$$new_patch)
+	file=$(STYLE_FILE); \
+	current=$$(awk -F': ' '/^Version:/ {print $$2}' "$$file"); \
+	new=$$(printf "%s" "$$current" | awk -F. '{p=$$3; if(p=="") p=0; printf("%d.%d.%d", $$1, $$2, p+1)}'); \
+	awk -v ver="$$new" 'BEGIN{FS=OFS=": "} /^Version:/{$$2=ver} {print}' "$$file" > "$$file.tmp" && mv "$$file.tmp" "$$file"; \
+	git add "$$file"; git commit -m "chore: bump theme version to $$new"; \
+	zip -r $(THEME_DIR)-$$new.zip $(THEME_DIR) -x '**/.DS_Store' '**/.git/*' '**/.idea/*' '**/.vscode/*' | cat; \
+	echo "Bumped to $$new and packaged $(THEME_DIR)-$$new.zip"
 
 package:
 	@version=$$(awk -F': ' '/^Version:/ {print $$2}' $(STYLE_FILE)); \
