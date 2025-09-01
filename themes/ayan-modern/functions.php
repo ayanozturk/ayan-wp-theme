@@ -56,6 +56,8 @@ function ayan_modern_setup() {
     add_theme_support('align-wide');
     add_theme_support('editor-styles');
     add_theme_support('dark-editor-style');
+    // Editor styles
+    add_editor_style('assets/css/editor-style.css');
 
     // Load translations
     load_theme_textdomain('ayan-modern', get_template_directory() . '/languages');
@@ -96,6 +98,36 @@ function ayan_modern_scripts() {
     }
 }
 add_action('wp_enqueue_scripts', 'ayan_modern_scripts');
+
+/**
+ * Register simple block patterns
+ */
+function ayan_modern_register_block_patterns() {
+    if (!function_exists('register_block_pattern')) {
+        return;
+    }
+
+    register_block_pattern(
+        'ayan-modern/hero',
+        array(
+            'title'       => __('Hero with heading and paragraph', 'ayan-modern'),
+            'description' => __('A simple hero section with a large heading and supporting text.', 'ayan-modern'),
+            'categories'  => array('text'),
+            'content'     => '<!-- wp:group {"layout":{"type":"constrained"}} --><div class="wp-block-group"><!-- wp:heading {"level":1} --><h1>' . esc_html__('Welcome to my blog', 'ayan-modern') . '</h1><!-- /wp:heading --><!-- wp:paragraph --><p>' . esc_html__('Sharing thoughts on technology, programming, and life.', 'ayan-modern') . '</p><!-- /wp:paragraph --></div><!-- /wp:group -->',
+        )
+    );
+
+    register_block_pattern(
+        'ayan-modern/callout',
+        array(
+            'title'       => __('Callout box', 'ayan-modern'),
+            'description' => __('A subtle callout box with background and padding.', 'ayan-modern'),
+            'categories'  => array('text'),
+            'content'     => '<!-- wp:group {"style":{"spacing":{"padding":{"top":"24px","right":"24px","bottom":"24px","left":"24px"}},"border":{"radius":"12px"}},"backgroundColor":"bg-secondary","layout":{"type":"constrained"}} --><div class="wp-block-group has-bg-secondary-background-color has-background" style="border-radius:12px;padding-top:24px;padding-right:24px;padding-bottom:24px;padding-left:24px"><!-- wp:paragraph --><p>' . esc_html__('Pro tip: Use categories and tags to organize your content.', 'ayan-modern') . '</p><!-- /wp:paragraph --></div><!-- /wp:group -->',
+        )
+    );
+}
+add_action('init', 'ayan_modern_register_block_patterns');
 
 /**
  * Inject custom header image styling
