@@ -68,4 +68,16 @@ pre code { background: transparent; }
 .alignright { float: right; margin-left: 1rem; }
 .aligncenter { display: block; margin-left: auto; margin-right: auto; }
 
+/* Lists */
+ul.wp-block-list, ol.wp-block-list {
+  padding-left: 1.5rem;
+  margin: 0 0 1rem 0;
+}
+ul.wp-block-list { list-style: disc; }
+ol.wp-block-list { list-style: decimal; }
+ul.wp-block-list li, ol.wp-block-list li { margin-bottom: 0.5rem; color: var(--text-secondary); }
+ul.wp-block-list li::marker, ol.wp-block-list li::marker { color: var(--primary-color); }
+ul.wp-block-list li > ul, ul.wp-block-list li > ol,
+ol.wp-block-list li > ul, ol.wp-block-list li > ol { margin-top: 0.25rem; }
+
 
