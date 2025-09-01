@@ -34,6 +34,22 @@ function ayan_modern_setup() {
         'flex-height' => true,
         'flex-width'  => true,
     ));
+
+    // Recommended supports
+    add_theme_support('custom-header', array(
+        'default-image'      => '',
+        'width'              => 1600,
+        'height'             => 400,
+        'flex-width'         => true,
+        'flex-height'        => true,
+        'uploads'            => true,
+        'header-text'        => false,
+    ));
+
+    add_theme_support('custom-background', array(
+        'default-color' => 'ffffff',
+        'default-image' => '',
+    ));
     add_theme_support('customize-selective-refresh-widgets');
     add_theme_support('responsive-embeds');
     add_theme_support('wp-block-styles');
@@ -80,6 +96,17 @@ function ayan_modern_scripts() {
     }
 }
 add_action('wp_enqueue_scripts', 'ayan_modern_scripts');
+
+/**
+ * Inject custom header image styling
+ */
+function ayan_modern_custom_header_style() {
+    $image = get_header_image();
+    if ($image) {
+        echo '<style id="ayan-modern-custom-header">.site-header{background-image:url(' . esc_url($image) . ');background-size:cover;background-position:center;}</style>';
+    }
+}
+add_action('wp_head', 'ayan_modern_custom_header_style');
 
 /**
  * Register custom block styles
