@@ -14,6 +14,8 @@ wp-content/wp-cache-config.php
 wp-content/plugins/hello.php
 uploads/
 themes/ayan-modern*.zip
+plugins/theme-check/
+plugins/akismet/
 
 # WordPress configuration
 wp-config.php
