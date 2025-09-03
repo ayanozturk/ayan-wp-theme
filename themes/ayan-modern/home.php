@@ -8,18 +8,20 @@
 					
 					<?php if (is_home() && !is_paged()) : ?>
 						<!-- Featured Posts Section -->
+
+						<?php
+							$featured_posts = new WP_Query(array(
+							'posts_per_page' => 3,
+							'meta_key' => '_featured_post',
+							'meta_value' => '1',
+							'post_status' => 'publish'
+							));
+						?>
+
+						<?php if ($featured_posts->have_posts()) : ?>
 						<section class="featured-posts">
-							<h2 class="section-title">Featured Posts</h2>
 							<div class="featured-grid">
 								<?php
-								$featured_posts = new WP_Query(array(
-									'posts_per_page' => 3,
-									'meta_key' => '_featured_post',
-									'meta_value' => '1',
-									'post_status' => 'publish'
-								));
-								
-								if ($featured_posts->have_posts()) :
 									while ($featured_posts->have_posts()) : $featured_posts->the_post();
 								?>
 									<article class="featured-post">
@@ -53,12 +55,10 @@
 								<?php
 									endwhile;
 									wp_reset_postdata();
-								endif;
 								?>
 							</div>
 						</section>
-						
-						<hr class="section-divider">
+						<?php endif; ?>
 					<?php endif; ?>
 					
 					<!-- Regular Posts -->
