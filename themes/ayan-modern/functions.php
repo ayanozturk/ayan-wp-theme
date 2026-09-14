@@ -329,9 +329,19 @@ function ayan_modern_get_reading_time($post_id = null) {
  * Customize the login page
  */
 function ayan_modern_login_logo() {
+    $custom_logo_id = get_theme_mod('custom_logo');
+    if (!$custom_logo_id) {
+        return;
+    }
+
+    $logo_url = wp_get_attachment_image_url($custom_logo_id, 'full');
+    if (!$logo_url) {
+        return;
+    }
+
     echo '<style type="text/css">
         #login h1 a {
-            background-image: url(' . get_template_directory_uri() . '/assets/images/logo.png) !important;
+            background-image: url(' . esc_url($logo_url) . ') !important;
             background-size: contain !important;
             width: 200px !important;
             height: 60px !important;

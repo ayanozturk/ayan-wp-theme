@@ -27,7 +27,7 @@ The `ayan-modern-theme.zip` file contains a complete WordPress theme with the fo
 - Security features with proper sanitization
 
 ### 🛠️ **WordPress Features**
-- Custom post types (Projects for portfolio)
+- Custom templates (404, archive, home) and block patterns
 - Custom meta boxes (Featured posts, reading time)
 - Widget areas with search, categories, recent posts
 - Customizer integration for social media links
@@ -82,7 +82,6 @@ The `ayan-modern-theme.zip` file contains a complete WordPress theme with the fo
 ### 4. Create Content
 - **Posts**: Write blog posts with featured images
 - **Pages**: Create About, Contact, and other static pages
-- **Projects**: Use the custom Projects post type for portfolio items
 
 ## 🎯 Customization Options
 
@@ -108,14 +107,19 @@ ayan-modern/
 ├── style.css              # Main stylesheet with theme header
 ├── functions.php          # Theme functions and features
 ├── index.php             # Main template file
+├── home.php              # Blog/posts homepage template
 ├── header.php            # Header template
 ├── footer.php            # Footer template
 ├── sidebar.php           # Sidebar template
 ├── single.php            # Single post template
 ├── page.php              # Page template
+├── archive.php           # Archive template
+├── 404.php               # Not found template
 ├── search.php            # Search results template
 ├── screenshot.png        # Theme preview image
 ├── assets/
+│   ├── css/
+│   │   └── editor-style.css  # Block editor styles
 │   └── js/
 │       └── main.js       # Main JavaScript file
 └── README.md             # Detailed documentation
@@ -148,5 +152,5 @@ This theme is licensed under the GPL v2 or later.
 ---
 
 **Package Size**: ~25KB  
-**Version**: 1.0.0  
-**Last Updated**: August 2024
+**Version**: 1.4.8  
+**Last Updated**: September 2026

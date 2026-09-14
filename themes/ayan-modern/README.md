@@ -26,7 +26,7 @@ A modern, clean, and professional WordPress theme designed for personal websites
 - **Fast Loading**: Optimized for speed and Core Web Vitals
 
 ### 🛠️ WordPress Features
-- **Custom Post Types**: Built-in Projects post type
+- **Custom Templates & Block Patterns**: Dedicated 404, archive, and home templates; hero and callout block patterns
 - **Custom Meta Boxes**: Featured post and reading time options
 - **Widget Areas**: Sidebar with multiple widget sections
 - **Customizer Integration**: Social media links and theme options
@@ -75,7 +75,6 @@ A modern, clean, and professional WordPress theme designed for personal websites
 ### 4. Create Content
 - **Posts**: Write blog posts with featured images
 - **Pages**: Create About, Contact, and other static pages
-- **Projects**: Use the custom Projects post type for portfolio items
 
 ## Customization
 
@@ -102,24 +101,23 @@ ayan-modern/
 ├── style.css              # Main stylesheet with theme header
 ├── functions.php          # Theme functions and features
 ├── index.php             # Main template file
+├── home.php              # Blog/posts homepage template
 ├── header.php            # Header template
 ├── footer.php            # Footer template
 ├── sidebar.php           # Sidebar template
 ├── single.php            # Single post template
 ├── page.php              # Page template
+├── archive.php           # Archive template
+├── 404.php               # Not found template
 ├── search.php            # Search results template
+├── screenshot.png        # Theme preview image
 ├── assets/
+│   ├── css/
+│   │   └── editor-style.css  # Block editor styles
 │   └── js/
 │       └── main.js       # Main JavaScript file
 └── README.md             # This file
 ```
-
-## Custom Post Types
-
-### Projects
-- **Slug**: `/projects/`
-- **Features**: Title, content, excerpt, featured image
-- **Use Case**: Portfolio items, case studies, projects
 
 ## Custom Meta Boxes
 
@@ -177,10 +175,19 @@ For support and customization requests:
 
 ## Changelog
 
+### Version 1.4.8
+- Dedicated 404 and archive templates
+- Login screen uses Customizer custom logo
+
+### Version 1.4.0
+- Block patterns and block style variants
+- Editor stylesheet for block editor parity
+- Custom header and background support
+
 ### Version 1.0.0
 - Initial release
 - Modern responsive design
-- Custom post types and meta boxes
+- Custom meta boxes
 - Social media integration
 - Performance optimizations
 

@@ -17,6 +17,15 @@ Classic theme with a modern header, responsive layout, featured images, and acce
 2. Activate via Appearance → Themes.
 
 == Changelog ==
+= 1.4.8 =
+* Dedicated 404 and archive templates
+* Login screen uses Customizer custom logo
+
+= 1.4 =
+* Block patterns and block style variants
+* Editor stylesheet for block editor parity
+* Custom header and background support
+
 = 1.1 =
 * Header redesign, responsive mobile menu, comments styling
 * Packaging fixes and theme review compliance
