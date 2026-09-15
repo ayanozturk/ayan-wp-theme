@@ -99,7 +99,7 @@ bump-major:
 	new=$$(printf "%s" "$$current" | awk -F. '{printf("%d.%d.%d", $$1+1, 0, 0)}'); \
 	awk -v ver="$$new" 'BEGIN{FS=OFS=": "} /^Version:/{$$2=ver} {print}' "$$file" > "$$file.tmp" && mv "$$file.tmp" "$$file"; \
 	git add "$$file"; git commit -m "chore: bump theme version to $$new"; \
-	cd themes && zip -r ayan-modern-$$new.zip ayan-modern -x '**/.DS_Store' '**/.git/*' '**/.idea/*' '**/.vscode/*' | cat; \
+	$(MAKE) package; \
 	echo "Bumped to $$new and packaged themes/ayan-modern-$$new.zip"
 
 bump-minor:
@@ -109,7 +109,7 @@ bump-minor:
 	new=$$(printf "%s" "$$current" | awk -F. '{printf("%d.%d.%d", $$1, $$2+1, 0)}'); \
 	awk -v ver="$$new" 'BEGIN{FS=OFS=": "} /^Version:/{$$2=ver} {print}' "$$file" > "$$file.tmp" && mv "$$file.tmp" "$$file"; \
 	git add "$$file"; git commit -m "chore: bump theme version to $$new"; \
-	cd themes && zip -r ayan-modern-$$new.zip ayan-modern -x '**/.DS_Store' '**/.git/*' '**/.idea/*' '**/.vscode/*' | cat; \
+	$(MAKE) package; \
 	echo "Bumped to $$new and packaged themes/ayan-modern-$$new.zip"
 
 bump-patch:
@@ -119,11 +119,15 @@ bump-patch:
 	new=$$(printf "%s" "$$current" | awk -F. '{p=$$3; if(p=="") p=0; printf("%d.%d.%d", $$1, $$2, p+1)}'); \
 	awk -v ver="$$new" 'BEGIN{FS=OFS=": "} /^Version:/{$$2=ver} {print}' "$$file" > "$$file.tmp" && mv "$$file.tmp" "$$file"; \
 	git add "$$file"; git commit -m "chore: bump theme version to $$new"; \
-	cd themes && zip -r ayan-modern-$$new.zip ayan-modern -x '**/.DS_Store' '**/.git/*' '**/.idea/*' '**/.vscode/*' | cat; \
+	$(MAKE) package; \
 	echo "Bumped to $$new and packaged themes/ayan-modern-$$new.zip"
 
 package:
-	@version=$$(awk -F': ' '/^Version:/ {print $$2}' $(STYLE_FILE)); \
+	@set -e; \
+	echo "Building theme assets..."; \
+	cd $(THEME_DIR) && npm install && npm run build; \
+	version=$$(awk -F': ' '/^Version:/ {print $$2}' $(STYLE_FILE)); \
 	rm -f themes/ayan-modern-$$version.zip; \
-	cd themes && zip -r ayan-modern-$$version.zip ayan-modern -x '**/.DS_Store' '**/.git/*' '**/.idea/*' '**/.vscode/*' | cat; \
+	cd themes && zip -r ayan-modern-$$version.zip ayan-modern \
+		-x '**/.DS_Store' '**/.git/*' '**/.idea/*' '**/.vscode/*' '**/node_modules/*' | cat; \
 	echo "Built package themes/ayan-modern-$$version.zip"

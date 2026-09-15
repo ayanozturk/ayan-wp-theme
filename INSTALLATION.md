@@ -1,156 +1,126 @@
-# Ayan Modern Theme - Installation Guide
+# Ayan Modern Theme — Installation Guide
 
-## 📦 Package Contents
+## Package Contents
 
-The `ayan-modern-theme.zip` file contains a complete WordPress theme with the following features:
+Ayan Modern **2.0.0** is a full-site editing block theme:
 
-### 🎨 **Modern Design Features**
-- Clean, professional layout with excellent typography
-- Responsive design that works on all devices
-- Dark mode support with automatic detection
-- Modern color scheme with CSS variables
-- Smooth animations and hover effects
+- Ink & Signal editorial design (image-led post rows, full-bleed covers)
+- Self-hosted Syne + Source Sans 3 typography
+- Block templates, template parts, and patterns
+- Featured post + reading time meta (block editor panel)
+- Reading progress, sticky header, share/copy link (front-end JS)
 
-### 📱 **User Experience**
-- Mobile-first design with hamburger menu
-- Reading progress bar for long articles
-- Back to top button for easy navigation
-- Featured posts section on homepage
-- Social sharing buttons for posts
-- Author bio cards with enhanced information
+## Requirements
 
-### 🚀 **Performance & SEO**
-- Schema markup for better search engine visibility
-- Lazy loading for images
-- Optimized code with semantic HTML
-- Fast loading with minimal dependencies
-- Security features with proper sanitization
+- WordPress **6.4+** (6.6 recommended)
+- PHP **7.4+**
+- Node.js **18+** only if building from source
 
-### 🛠️ **WordPress Features**
-- Custom templates (404, archive, home) and block patterns
-- Custom meta boxes (Featured posts, reading time)
-- Widget areas with search, categories, recent posts
-- Customizer integration for social media links
-- Translation ready for internationalization
+## Installation
 
-## 📋 Installation Instructions
+### WordPress admin upload
 
-### Method 1: WordPress Admin Upload (Recommended)
+1. Build assets locally (see below) or use a pre-built release zip.
+2. Appearance → Themes → Add New → Upload Theme
+3. Choose `ayan-modern-2.0.0.zip`
+4. Activate **Ayan Modern**
 
-1. **Download the theme package** (`ayan-modern-theme.zip`)
-2. **Log into your WordPress admin** dashboard
-3. **Go to Appearance → Themes**
-4. **Click "Add New"** at the top of the page
-5. **Click "Upload Theme"** button
-6. **Choose File** and select `ayan-modern-theme.zip`
-7. **Click "Install Now"**
-8. **Activate the theme** when installation is complete
+### Docker dev stack
 
-### Method 2: Manual Upload via FTP
+```bash
+make start
+cd themes/ayan-modern && npm install && npm run build
+```
 
-1. **Extract the ZIP file** to your computer
-2. **Upload the `ayan-modern` folder** to `/wp-content/themes/` on your server
-3. **Go to Appearance → Themes** in WordPress admin
-4. **Activate "Ayan Modern"** theme
+Visit http://localhost:8000 and activate the theme.
 
-## ⚙️ Initial Setup
+## Build from source
 
-### 1. Basic Configuration
-- Go to **Appearance → Customize**
-- Set your **Site Title** and **Tagline**
-- Upload a **Custom Logo** (recommended size: 200x60px)
-- Configure **Social Media Links** (Twitter, GitHub, LinkedIn)
+```bash
+cd themes/ayan-modern
+npm install
+npm run build
+```
 
-### 2. Create Menus
-- Go to **Appearance → Menus**
-- Create a **Primary Menu** with links like:
-  - Home
-  - Blog
-  - About
-  - Contact
-- Create a **Footer Menu** for additional links
+Outputs:
 
-### 3. Add Widgets
-- Go to **Appearance → Widgets**
-- Add widgets to the **Sidebar** area:
-  - Search
-  - Recent Posts
-  - Categories
-  - Tag Cloud
-  - Social Links (appears automatically when social media is configured)
+- `assets/css/theme.css`
+- `assets/js/theme.js`
+- `assets/js/editor.js`
 
-### 4. Create Content
-- **Posts**: Write blog posts with featured images
-- **Pages**: Create About, Contact, and other static pages
+Re-run after editing `assets/scss/` or `assets/js/src/`.
 
-## 🎯 Customization Options
+## Initial setup
 
-### Welcome Message
-- Go to **Appearance → Customize → Site Content**
-- Edit the **Welcome Message** for the homepage
-- Toggle **Show Welcome Message** on/off
+### 1. Site identity
 
-### Social Media Links
-- Go to **Appearance → Customize → Social Media**
-- Add your **Twitter**, **GitHub**, and **LinkedIn** URLs
-- The "Follow Me" sections will appear automatically
+Appearance → Editor → Template Parts → **Header**
 
-### Colors and Typography
-- The theme uses CSS custom properties for easy customization
-- Main colors can be modified in `style.css`
-- Primary font: Inter (Google Fonts)
+- Set site title / tagline / logo
+- Assign **Primary Menu** to the Navigation block
 
-## 📁 File Structure
+### 2. Footer
+
+Appearance → Editor → Template Parts → **Footer**
+
+- Assign **Footer Menu**
+- Update Social Links URLs (X, GitHub, LinkedIn)
+
+### 3. Home page
+
+- Settings → Reading → “Your homepage displays” → **Your latest posts** (or assign the Home template to a static front page)
+- Edit the **Home** template to adjust hero copy and query sections
+
+### 4. Featured posts
+
+Edit any post → Document sidebar → **Post Options**:
+
+- **Mark as featured post** — surfaces in the home featured cover query
+- **Reading time** — optional override (auto-calculated when empty)
+
+### 5. Legacy Customizer import
+
+If upgrading from Ayan Modern 1.x, welcome text and social URLs from the old Customizer are imported **once** on theme activation. Confirm values in the Site Editor afterward.
+
+## File structure
 
 ```
 ayan-modern/
-├── style.css              # Main stylesheet with theme header
-├── functions.php          # Theme functions and features
-├── index.php             # Main template file
-├── home.php              # Blog/posts homepage template
-├── header.php            # Header template
-├── footer.php            # Footer template
-├── sidebar.php           # Sidebar template
-├── single.php            # Single post template
-├── page.php              # Page template
-├── archive.php           # Archive template
-├── 404.php               # Not found template
-├── search.php            # Search results template
-├── screenshot.png        # Theme preview image
+├── theme.json
+├── style.css              # Theme header only
+├── functions.php
+├── index.php              # Required stub
+├── templates/             # Block templates (.html)
+├── parts/                 # Header + footer
+├── patterns/              # File-based block patterns
 ├── assets/
-│   ├── css/
-│   │   └── editor-style.css  # Block editor styles
-│   └── js/
-│       └── main.js       # Main JavaScript file
-└── README.md             # Detailed documentation
+│   ├── css/theme.css      # Built styles
+│   ├── js/theme.js        # Front-end JS
+│   ├── js/editor.js       # Editor panel
+│   ├── scss/              # Source styles
+│   └── fonts/             # Self-hosted woff2
+└── inc/                   # PHP bridges (meta, query, schema)
 ```
 
-## 🔧 System Requirements
+## Translations
 
-- **WordPress**: 5.0 or higher
-- **PHP**: 7.4 or higher
-- **Browser Support**: Chrome, Firefox, Safari, Edge (latest versions)
+See `languages/README.md` for POT generation with WP-CLI.
 
-## 🆘 Support
+## Manual QA checklist (Docker)
 
-For support and customization requests:
-- Check the WordPress Codex for general WordPress questions
-- Review the theme code for customization examples
-- Consider hiring a WordPress developer for complex modifications
+- [ ] Home: featured cover, welcome, post rows
+- [ ] Single: full-bleed image, reading time, share, related, comments
+- [ ] Archive, search, 404
+- [ ] Mobile navigation overlay
+- [ ] Skip link targets `#wp--skip-link--target`
+- [ ] Featured post meta in editor
+- [ ] Site Editor edits persist for header/footer
+- [ ] Reduced motion: no scale/scroll animations
+- [ ] Dark mode (OS preference)
 
-## 📄 License
+## License
 
-This theme is licensed under the GPL v2 or later.
+MIT — see `LICENSE`.
 
-## 👨‍💻 Credits
-
-- **Author**: Ayan Ozturk
-- **Design**: Modern, clean design principles
-- **Icons**: SVG icons for social media and UI elements
-- **Fonts**: Inter font family from Google Fonts
-
----
-
-**Package Size**: ~25KB  
-**Version**: 1.4.8  
-**Last Updated**: September 2026
+**Version:** 2.0.0  
+**Author:** Ayan Ozturk

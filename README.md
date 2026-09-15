@@ -1,153 +1,90 @@
 # WordPress Development Environment
 
-A Docker-based WordPress development environment optimized for custom theme development.
+A Docker-based WordPress development environment with the **Ayan Modern** full-site editing block theme.
 
 ## Quick Start
 
 1. **Start the environment:**
    ```bash
-   docker-compose up -d
+   make start
    ```
 
-2. **Access WordPress:**
-   - WordPress Site: http://localhost:8000
+2. **Build theme assets:**
+   ```bash
+   cd themes/ayan-modern
+   npm install
+   npm run build
+   ```
+
+3. **Access WordPress:**
+   - Site: http://localhost:8000
    - phpMyAdmin: http://localhost:8081
 
-3. **Complete WordPress setup:**
-   - Visit http://localhost:8000
-   - Follow the WordPress installation wizard
-   - Use these database credentials:
-     - Database Name: `wordpress`
-     - Username: `wordpress`
-     - Password: `wordpress`
-     - Database Host: `db:3306`
+4. **Activate the theme** under Appearance → Themes, then customize header/footer in **Appearance → Editor**.
+
+## Ayan Modern (v2.0.0)
+
+Ink & Signal is a block theme using:
+
+- `theme.json` design tokens (Syne + Source Sans 3, self-hosted)
+- HTML templates in `templates/` and `parts/`
+- File-based patterns in `patterns/`
+- Built assets: `assets/css/theme.css`, `assets/js/theme.js`, `assets/js/editor.js`
+
+### Build commands
+
+From `themes/ayan-modern/`:
+
+```bash
+npm install      # first time
+npm run build    # production build
+npm start        # watch mode during development
+```
+
+Run `npm run build` before packaging or deploying — the zip must include compiled CSS/JS.
+
+### Site Editor workflow
+
+- **Header / footer:** Appearance → Editor → Template Parts
+- **Home layout:** edit `Home` template or swap patterns (`Featured Query`, `Hero Home`, `Post Row`)
+- **Featured posts:** open a post → Document sidebar → Post Options → “Mark as featured post”
+- **Reading time:** set manually or leave empty for auto word-count calculation
+
+On first activation, legacy Customizer welcome text and social URLs are imported once into template content when possible.
 
 ## Directory Structure
 
 ```
 ayan-wp-theme/
 ├── docker-compose.yml
-├── themes/           # Custom themes directory
-├── plugins/          # Custom plugins directory
-├── uploads/          # Media uploads
-└── README.md
+├── Makefile
+├── themes/
+│   └── ayan-modern/     # Block theme (FSE)
+├── plugins/
+└── uploads/
 ```
 
-## Development Workflow
-
-### Creating a Custom Theme
-
-1. **Create your theme directory:**
-   ```bash
-   mkdir themes/my-custom-theme
-   ```
-
-2. **Create basic theme files:**
-   ```bash
-   touch themes/my-custom-theme/style.css
-   touch themes/my-custom-theme/index.php
-   touch themes/my-custom-theme/functions.php
-   ```
-
-3. **Add theme header to style.css:**
-   ```css
-   /*
-   Theme Name: My Custom Theme
-   Description: A custom WordPress theme
-   Version: 1.0
-   Author: Your Name
-   */
-   ```
-
-### Useful Commands
-
-- **Start services:** `docker-compose up -d`
-- **Stop services:** `docker-compose down`
-- **View logs:** `docker-compose logs -f`
-- **Restart services:** `docker-compose restart`
-- **Remove everything:** `docker-compose down -v`
-
-### Makefile Helpers (Theme versioning & packaging)
+## Makefile Helpers
 
 From the repository root:
 
+```bash
+make show-version   # Print theme version from style.css
+make package        # npm build + zip current version
+make bump-patch     # Patch bump, commit, build, zip
+make bump-minor     # Minor bump, commit, build, zip
+make bump-major     # Major bump, commit, build, zip
 ```
-make show-version   # Print current theme version from themes/ayan-modern/style.css
-make bump-patch     # Increment patch (X.Y.Z -> X.Y.(Z+1)), commit and zip
-make bump-minor     # Increment minor (X.Y -> X.(Y+1).0), commit and zip
-make bump-major     # Increment major (X -> (X+1).0.0), commit and zip
-make package        # Zip current theme version without changing it
-```
 
-Zips are created alongside the `themes/ayan-modern/` directory, e.g. `themes/ayan-modern-1.4.0.zip`.
-
-### Database Access
-
-- **phpMyAdmin:** http://localhost:8081
-  - Username: `wordpress`
-  - Password: `wordpress`
-
-- **Direct MySQL access:**
-  ```bash
-  docker exec -it wp_db mysql -u wordpress -p wordpress
-  ```
-
-## Configuration
-
-### WordPress Debug Settings
-
-The environment is configured with WordPress debug settings enabled:
-- `WP_DEBUG_LOG`: true (logs to `/var/www/html/wp-content/debug.log`)
-- `WP_DEBUG_DISPLAY`: false (prevents errors from showing on frontend)
-- `SCRIPT_DEBUG`: true (enables unminified scripts for development)
-
-### Ports
-
-- **WordPress:** 8000
-- **phpMyAdmin:** 8081
-- **MySQL:** 3306 (internal)
-
-### Volumes
-
-- `./themes` → `/var/www/html/wp-content/themes`
-- `./plugins` → `/var/www/html/wp-content/plugins`
-- `./uploads` → `/var/www/html/wp-content/uploads`
+Packages are written to `themes/ayan-modern-<version>.zip`.
 
 ## Troubleshooting
 
-### Common Issues
-
-1. **Port already in use:**
-   - Change ports in `docker-compose.yml`
-   - Or stop conflicting services
-
-2. **Permission issues:**
-   ```bash
-   sudo chown -R $USER:$USER themes plugins uploads
-   ```
-
-3. **Database connection issues:**
-   - Ensure MySQL container is running: `docker-compose ps`
-   - Check logs: `docker-compose logs db`
-
-### Reset Everything
-
-To completely reset the environment:
-```bash
-docker-compose down -v
-docker system prune -a
-docker-compose up -d
-```
-
-## Next Steps
-
-1. Complete WordPress installation
-2. Create your custom theme in the `themes/` directory
-3. Activate your theme in WordPress admin
-4. Start developing!
+- **Styles missing:** run `npm run build` inside `themes/ayan-modern/`
+- **Port conflicts:** edit ports in `docker-compose.yml`
+- **Reset environment:** `make reset` then `make start`
 
 ## Resources
 
-- [WordPress Theme Development](https://developer.wordpress.org/themes/)
-- [WordPress Coding Standards](https://developer.wordpress.org/coding-standards/)
-- [Docker Compose Documentation](https://docs.docker.com/compose/)
+- [Block theme handbook](https://developer.wordpress.org/themes/block-themes/)
+- [theme.json reference](https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/)
