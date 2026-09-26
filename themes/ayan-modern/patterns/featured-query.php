@@ -13,9 +13,9 @@
 <!-- wp:query {"queryId":1,"query":{"perPage":1,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"className":"is-featured-query featured-query","align":"full"} -->
 <div class="wp-block-query alignfull is-featured-query featured-query">
 	<!-- wp:post-template {"layout":{"type":"default"}} -->
-		<!-- wp:cover {"useFeaturedImage":true,"dimRatio":40,"overlayColor":"ink","isUserOverlayColor":true,"minHeight":70,"minHeightUnit":"vh","contentPosition":"bottom left","align":"full","className":"featured-cover","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}}} -->
+		<!-- wp:cover {"useFeaturedImage":true,"dimRatio":70,"overlayColor":"ink","isUserOverlayColor":true,"minHeight":70,"minHeightUnit":"vh","contentPosition":"bottom left","align":"full","className":"featured-cover","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}}} -->
 		<div class="wp-block-cover alignfull featured-cover" style="padding-top:var(--wp--preset--spacing--70);padding-right:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--50);min-height:70vh">
-			<span aria-hidden="true" class="wp-block-cover__background has-ink-background-color has-background-dim-40 has-background-dim"></span>
+			<span aria-hidden="true" class="wp-block-cover__background has-ink-background-color has-background-dim-70 has-background-dim"></span>
 			<div class="wp-block-cover__inner-container">
 				<!-- wp:paragraph {"fontSize":"small","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.08em","fontWeight":"600"}},"textColor":"paper"} -->
 				<p class="has-paper-color has-text-color has-small-font-size" style="font-weight:600;letter-spacing:0.08em;text-transform:uppercase">Featured</p>
