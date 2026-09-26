@@ -1,3 +1,4 @@
+<?php
 /**
  * Scripts and styles.
  *

@@ -9,6 +9,8 @@ a{color:inherit;transition:color var(--ayan-transition)} a:hover,a:focus-visible
 .site-header.is-scrolled{background:color-mix(in srgb,var(--ayan-paper) 78%,transparent);backdrop-filter:blur(12px)}
 .site-title--brand,.site-branding .wp-block-site-title a{font-family:var(--ayan-font-display);font-weight:800;letter-spacing:-.03em;line-height:1;text-decoration:none}
 .primary-navigation{margin-left:auto}
+.site-header>.wp-block-group{max-width:var(--wp--style--global--wide-size)}
+.site-header .wp-block-navigation{color:var(--ayan-ink)}
 .hero-home{border-bottom:1px solid var(--ayan-line)}
 .featured-cover .wp-block-post-title a{color:var(--ayan-white);text-decoration:none}
 .is-motion-ready img{animation:ayan-scale-in 1.2s ease forwards}

@@ -15,7 +15,7 @@
 	<!-- wp:group {"layout":{"type":"constrained","contentSize":"42rem","justifyContent":"left"}} -->
 	<div class="wp-block-group">
 		<!-- wp:paragraph {"fontSize":"large","style":{"typography":{"lineHeight":"1.5"}}} -->
-		<p class="has-large-font-size" style="line-height:1.5">Welcome — personal notes on technology, craft, and the work of building things that last.</p>
+		<p class="has-large-font-size" style="line-height:1.5">Thoughts on software engineering, technical leadership and productivity.</p>
 		<!-- /wp:paragraph -->
 
 		<!-- wp:buttons {"style":{"spacing":{"margin":{"top":"var:preset|spacing|50"}}}} -->

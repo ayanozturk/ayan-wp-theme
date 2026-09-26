@@ -1,3 +1,4 @@
+<?php
 /**
  * Block pattern categories and block styles.
  *
