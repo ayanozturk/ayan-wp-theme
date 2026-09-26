@@ -63,5 +63,63 @@ a{color:inherit;transition:color var(--ayan-transition)} a:hover,a:focus-visible
 .back-to-top{position:fixed;right:1.25rem;bottom:1.25rem;z-index:50;border:1px solid var(--ayan-line);background:color-mix(in srgb,var(--ayan-paper) 92%,transparent);color:var(--ayan-ink);font-family:var(--ayan-font-display);font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.65rem .9rem;border-radius:var(--ayan-radius);cursor:pointer}
 .back-to-top[hidden]{opacity:0;pointer-events:none}
 .post-comments{max-width:var(--ayan-content-size);margin-inline:auto}
-@media (max-width:782px){.post-row{flex-direction:column}.post-row__image,.related-post-row .post-row__image{flex-basis:auto;max-width:none;aspect-ratio:16/10}.primary-navigation{width:100%;margin-left:0}.single-hero .featured-image--scale{aspect-ratio:4/3}}
+@media (max-width:782px){
+  .post-row{flex-direction:column}
+  .post-row__image,.related-post-row .post-row__image{flex-basis:auto;max-width:none;aspect-ratio:16/10}
+  .primary-navigation{width:100%;margin-left:0}
+  .single-hero .featured-image--scale{aspect-ratio:4/3}
+
+  /* Keep project artwork contained and balanced on narrow screens. */
+  .site-main--page .wp-block-post-content figure:has(> img[alt="My Fridge app screen showing organised food containers"]),
+  .site-main--page .wp-block-post-content figure:has(> img[alt="SimbaHR mascot logo"]),
+  .site-main--page .wp-block-post-content figure:has(> img[alt="PHP Strom extension logo"]),
+  .site-main--page .wp-block-post-content figure:has(> img[alt="PHPUnit Runner extension logo"]),
+  .site-main--page .wp-block-post-content figure:has(> img[alt="Last Done feature artwork with a reminder calendar and plants"]){
+    align-items:center;
+    background:#17171a;
+    border:1px solid #303034;
+    border-radius:1rem;
+    display:flex;
+    justify-content:center;
+    margin-block:1.25rem;
+    overflow:hidden;
+    padding:.75rem;
+  }
+  .site-main--page .wp-block-post-content figure:has(> img[alt="My Fridge app screen showing organised food containers"]) img{
+    border-radius:.75rem;
+    box-shadow:0 1rem 2rem rgb(0 0 0 / 32%);
+    display:block;
+    height:auto!important;
+    max-height:23rem!important;
+    max-width:100%!important;
+    object-fit:contain;
+    width:auto!important;
+  }
+  .site-main--page .wp-block-post-content figure:has(> img[alt="SimbaHR mascot logo"]) img{
+    display:block;
+    height:auto!important;
+    max-height:14rem!important;
+    max-width:100%!important;
+    object-fit:contain;
+    width:auto!important;
+  }
+  .site-main--page .wp-block-post-content figure:has(> img[alt="PHP Strom extension logo"]) img,
+  .site-main--page .wp-block-post-content figure:has(> img[alt="PHPUnit Runner extension logo"]) img{
+    display:block;
+    height:auto!important;
+    max-height:11rem!important;
+    max-width:100%!important;
+    object-fit:contain;
+    width:auto!important;
+  }
+  .site-main--page .wp-block-post-content figure:has(> img[alt="Last Done feature artwork with a reminder calendar and plants"]) img{
+    border-radius:.65rem;
+    display:block;
+    height:auto!important;
+    max-height:13rem!important;
+    max-width:100%!important;
+    object-fit:contain;
+    width:100%!important;
+  }
+}
 .editor-styles-wrapper{font-family:var(--ayan-font-body);color:var(--ayan-ink);background:var(--ayan-paper)}
