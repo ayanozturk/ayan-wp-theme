@@ -125,7 +125,7 @@ bump-patch:
 package:
 	@set -e; \
 	echo "Building theme assets..."; \
-	cd $(THEME_DIR) && npm install && npm run build; \
+	(cd $(THEME_DIR) && npm install && npm run build); \
 	version=$$(awk -F': ' '/^Version:/ {print $$2}' $(STYLE_FILE)); \
 	rm -f themes/ayan-modern-$$version.zip; \
 	cd themes && zip -r ayan-modern-$$version.zip ayan-modern \

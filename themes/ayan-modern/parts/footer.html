@@ -1,9 +1,9 @@
 <!-- wp:group {"align":"full","className":"site-footer","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70"}},"border":{"top":{"color":"var:preset|color|line","width":"1px"}}},"backgroundColor":"ink","textColor":"paper","layout":{"type":"constrained"}} -->
 <div class="wp-block-group alignfull site-footer has-paper-color has-ink-background-color has-text-color has-background" style="border-top-color:var(--wp--preset--color--line);border-top-width:1px;padding-top:var(--wp--preset--spacing--70);padding-bottom:var(--wp--preset--spacing--70)">
-	<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"var:preset|spacing|60"}}}} -->
-	<div class="wp-block-columns">
-		<!-- wp:column {"width":"40%"} -->
-		<div class="wp-block-column" style="flex-basis:40%">
+	<!-- wp:columns {"align":"wide","style":{"spacing":{"blockGap":{"left":"var:preset|spacing|50"}}}} -->
+	<div class="wp-block-columns alignwide">
+		<!-- wp:column {"width":"28%"} -->
+		<div class="wp-block-column" style="flex-basis:28%">
 			<!-- wp:site-title {"level":3,"fontSize":"large","fontFamily":"syne","fontWeight":"700"} /-->
 
 			<!-- wp:paragraph {"fontSize":"small","textColor":"mute"} -->
@@ -12,8 +12,8 @@
 		</div>
 		<!-- /wp:column -->
 
-		<!-- wp:column {"width":"30%"} -->
-		<div class="wp-block-column" style="flex-basis:30%">
+		<!-- wp:column {"width":"17%"} -->
+		<div class="wp-block-column" style="flex-basis:17%">
 			<!-- wp:heading {"level":4,"fontSize":"small","fontFamily":"syne","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.06em"}}} -->
 			<h4 class="wp-block-heading has-small-font-size" style="letter-spacing:0.06em;text-transform:uppercase">Explore</h4>
 			<!-- /wp:heading -->
@@ -27,8 +27,28 @@
 		</div>
 		<!-- /wp:column -->
 
-		<!-- wp:column {"width":"30%"} -->
-		<div class="wp-block-column" style="flex-basis:30%">
+		<!-- wp:column {"width":"35%","className":"footer-browse"} -->
+		<div class="wp-block-column footer-browse" style="flex-basis:35%">
+			<!-- wp:heading {"level":4,"fontSize":"small","fontFamily":"syne","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.06em"}}} -->
+			<h4 class="wp-block-heading has-small-font-size" style="letter-spacing:0.06em;text-transform:uppercase">Browse writing</h4>
+			<!-- /wp:heading -->
+
+			<!-- wp:search {"label":"Search this site","showLabel":true,"placeholder":"Search writing…","buttonText":"Search","buttonPosition":"button-outside","style":{"border":{"radius":"2px"}}} /-->
+
+			<!-- wp:heading {"level":5,"fontSize":"small","fontFamily":"syne"} -->
+			<h5 class="wp-block-heading has-small-font-size">Topics</h5>
+			<!-- /wp:heading -->
+
+			<!-- wp:categories {"showPostCounts":false,"showHierarchy":false} /-->
+
+			<!-- wp:tag-cloud {"taxonomy":"post_tag","numberOfTags":12,"showTagCounts":false,"smallestFontSize":"0.875rem","largestFontSize":"1rem"} /-->
+
+			<!-- wp:archives {"displayAsDropdown":true,"showLabel":true,"showPostCounts":false,"type":"monthly"} /-->
+		</div>
+		<!-- /wp:column -->
+
+		<!-- wp:column {"width":"20%"} -->
+		<div class="wp-block-column" style="flex-basis:20%">
 			<!-- wp:heading {"level":4,"fontSize":"small","fontFamily":"syne","style":{"typography":{"textTransform":"uppercase","letterSpacing":"0.06em"}}} -->
 			<h4 class="wp-block-heading has-small-font-size" style="letter-spacing:0.06em;text-transform:uppercase">Connect</h4>
 			<!-- /wp:heading -->

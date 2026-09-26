@@ -16,7 +16,7 @@
 	<h2 class="wp-block-heading has-large-font-size" style="margin-bottom:var(--wp--preset--spacing--50)">Related reading</h2>
 	<!-- /wp:heading -->
 
-	<!-- wp:query {"queryId":3,"query":{"perPage":3,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"className":"is-related-query related-posts-query"} -->
+	<!-- wp:query {"queryId":3,"query":{"perPage":3,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"excludeCurrent":true,"sticky":"","inherit":false},"className":"is-related-query related-posts-query"} -->
 	<div class="wp-block-query is-related-query related-posts-query">
 		<!-- wp:post-template {"className":"related-posts-list","layout":{"type":"default"}} -->
 			<!-- wp:group {"className":"related-post-row post-row","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"stretch"},"style":{"spacing":{"blockGap":"0","margin":{"bottom":"0"}},"border":{"bottom":{"color":"var:preset|color|line","width":"1px"}}}} -->

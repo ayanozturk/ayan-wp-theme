@@ -28,9 +28,16 @@ function ayan_modern_query_loop_block_query_vars( $query, $block, $page ) { // p
 		$query['order']          = 'DESC';
 	}
 
-	if ( str_contains( $class_name, 'is-related-query' ) ) {
-		$post_id = get_queried_object_id();
+	if ( str_contains( $class_name, 'related-posts-list' ) ) {
+		$post_id = absint( $block->context['postId'] ?? 0 );
 
+		if ( ! $post_id ) {
+			$post_id = absint( get_queried_object_id() );
+		}
+
+		if ( ! $post_id && isset( $GLOBALS['post']->ID ) ) {
+			$post_id = absint( $GLOBALS['post']->ID );
+		}
 		if ( $post_id ) {
 			$categories = wp_get_post_categories( $post_id );
 
@@ -38,7 +45,14 @@ function ayan_modern_query_loop_block_query_vars( $query, $block, $page ) { // p
 				$query['category__in'] = $categories;
 			}
 
-			$query['post__not_in']   = array( $post_id );
+			$query['post__not_in']   = array_values(
+				array_unique(
+					array_merge(
+						array_map( 'absint', $query['post__not_in'] ?? array() ),
+						array( $post_id )
+					)
+				)
+			);
 			$query['posts_per_page'] = 3;
 		}
 	}
