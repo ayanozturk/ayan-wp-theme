@@ -9,7 +9,7 @@
     "packages-update": "wp-scripts packages-update"
   },
   "devDependencies": {
-    "@wordpress/scripts": "^30.15.0",
+    "@wordpress/scripts": "^36.0.0",
     "webpack-remove-empty-scripts": "^1.0.4"
   }
 }
