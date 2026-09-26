@@ -9,7 +9,11 @@
     "packages-update": "wp-scripts packages-update"
   },
   "devDependencies": {
-    "@wordpress/scripts": "^30.15.0",
+    "@wordpress/scripts": "^36.0.0",
     "webpack-remove-empty-scripts": "^1.0.4"
+  },
+  "overrides": {
+    "serialize-javascript": "^7.0.5",
+    "uuid": "^11.1.1"
   }
 }

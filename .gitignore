@@ -16,6 +16,7 @@ uploads/
 themes/ayan-modern*.zip
 plugins/theme-check/
 plugins/akismet/
+plugins/jetpack/
 
 # WordPress configuration
 wp-config.php
