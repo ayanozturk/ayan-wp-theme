@@ -1,16 +1,16 @@
 === Ayan Modern ===
 Contributors: ayanozturk
-Requires at least: 6.0
+Requires at least: 6.6
 Tested up to: 6.6
-Requires PHP: 7.4
+Requires PHP: 8.2
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 Copyright: 2025 Ayan Ozturk
 
-Modern, clean classic theme focused on readability and performance.
+Modern full-site editing block theme focused on readability and performance.
 
 == Description ==
-Classic theme with a modern header, responsive layout, featured images, and accessible navigation. Includes a customizable sidebar and styled comments.
+Full-site editing block theme with responsive editorial layouts, featured images, accessible navigation, and reusable design patterns.
 
 == Installation ==
 1. Upload the `ayan-modern` folder to `/wp-content/themes/`.
@@ -32,5 +32,3 @@ Classic theme with a modern header, responsive layout, featured images, and acce
 
 = 1.0 =
 * Initial release
-
-

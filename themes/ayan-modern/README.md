@@ -2,10 +2,12 @@
 
 Ink & Signal — a full-site editing block theme for personal-brand editorial sites.
 
+Requires WordPress 6.6+ and PHP 8.2+.
+
 ## Build
 
 ```bash
-npm install
+npm ci
 npm run build
 ```
 
@@ -30,6 +32,10 @@ npm run build
 - `ayan-modern/related-posts` — same-category related items
 - `ayan-modern/share-row` — X / LinkedIn / copy link
 - `ayan-modern/callout` — signal-border callout
+
+## Project image styling
+
+Add `ayan-project-artwork` to an Image block's Additional CSS class(es) field, then add one variant: `ayan-project-artwork--device`, `ayan-project-artwork--logo`, `ayan-project-artwork--compact-logo`, or `ayan-project-artwork--wide`. Existing portfolio images receive these classes at render time while their legacy alt text is migrated; new content should use the explicit classes.
 
 ## Post meta
 

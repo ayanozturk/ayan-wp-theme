@@ -38,6 +38,17 @@ function ayan_modern_scripts() {
 			$asset['version'],
 			true
 		);
+
+		wp_localize_script(
+			'ayan-modern-script',
+			'ayanModernI18n',
+			array(
+				'copySuccess' => __( 'Link copied.', 'ayan-modern' ),
+				'copyFailed'  => __( 'Copy failed. Select and copy the link manually.', 'ayan-modern' ),
+				'backToTop'   => __( 'Back to top', 'ayan-modern' ),
+				'top'         => __( 'Top', 'ayan-modern' ),
+			)
+		);
 	}
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {

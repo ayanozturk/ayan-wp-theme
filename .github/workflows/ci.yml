@@ -1,0 +1,30 @@
+name: Theme CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: themes/ayan-modern/package-lock.json
+      - name: Check PHP syntax
+        run: find themes/ayan-modern -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Install theme build dependencies
+        run: npm ci
+        working-directory: themes/ayan-modern
+      - name: Build theme assets
+        run: npm run build
+        working-directory: themes/ayan-modern
+      - name: Verify committed build assets
+        run: git diff --exit-code -- themes/ayan-modern/assets/css/theme.css themes/ayan-modern/assets/css/theme-rtl.css themes/ayan-modern/assets/js/theme.js themes/ayan-modern/assets/js/editor.js

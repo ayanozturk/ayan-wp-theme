@@ -92,9 +92,12 @@ function ayan_modern_get_reading_time( $post_id = null ) {
 		return max( 1, (int) $reading_time );
 	}
 
-	$content      = get_post_field( 'post_content', $post_id );
-	$word_count   = str_word_count( wp_strip_all_tags( (string) $content ) );
-	$reading_time = (int) ceil( $word_count / 200 );
+	$content    = wp_strip_all_tags( (string) get_post_field( 'post_content', $post_id ) );
+	$word_count = preg_match_all( '/[\p{L}\p{N}]+(?:[\'’][\p{L}\p{N}]+)*/u', $content );
+	$word_count = false === $word_count ? 0 : $word_count;
+	$words_per_minute = (int) apply_filters( 'ayan_modern_reading_speed', 200, $post_id );
+	$words_per_minute = max( 1, $words_per_minute );
+	$reading_time     = (int) ceil( $word_count / $words_per_minute );
 
 	return max( 1, $reading_time );
 }
@@ -110,7 +113,7 @@ function ayan_modern_format_reading_time( $post_id = null ) {
 
 	return sprintf(
 		/* translators: %d: number of minutes */
-		_n( '%d min read', '%d min read', $minutes, 'ayan-modern' ),
+		_n( '%d min read', '%d mins read', $minutes, 'ayan-modern' ),
 		$minutes
 	);
 }

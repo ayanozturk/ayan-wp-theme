@@ -1,6 +1,6 @@
 # WordPress Development Environment
 
-A Docker-based WordPress development environment with the **Ayan Modern** full-site editing block theme.
+A Docker-based WordPress development environment with the **Ayan Modern** full-site editing block theme. The theme requires WordPress 6.6 or newer and PHP 8.2 or newer.
 
 ## Quick Start
 
@@ -12,7 +12,7 @@ A Docker-based WordPress development environment with the **Ayan Modern** full-s
 2. **Build theme assets:**
    ```bash
    cd themes/ayan-modern
-   npm install
+   npm ci
    npm run build
    ```
 
@@ -22,7 +22,7 @@ A Docker-based WordPress development environment with the **Ayan Modern** full-s
 
 4. **Activate the theme** under Appearance → Themes, then customize header/footer in **Appearance → Editor**.
 
-## Ayan Modern (v2.0.0)
+## Ayan Modern (v2.0.5)
 
 Ink & Signal is a block theme using:
 
@@ -36,7 +36,7 @@ Ink & Signal is a block theme using:
 From `themes/ayan-modern/`:
 
 ```bash
-npm install      # first time
+npm ci           # clean install from package-lock.json
 npm run build    # production build
 npm start        # watch mode during development
 ```
@@ -46,6 +46,7 @@ Run `npm run build` before packaging or deploying — the zip must include compi
 ### Site Editor workflow
 
 - **Header / footer:** Appearance → Editor → Template Parts
+- **Navigation:** the starter header lists published pages automatically; customize it under Appearance → Editor → Navigation
 - **Home layout:** edit `Home` template or swap patterns (`Featured Query`, `Hero Home`, `Post Row`)
 - **Featured posts:** open a post → Document sidebar → Post Options → “Mark as featured post”
 - **Reading time:** set manually or leave empty for auto word-count calculation

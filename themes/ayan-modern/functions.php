@@ -21,6 +21,8 @@ $ayan_modern_includes = array(
 	'schema.php',
 	'login.php',
 	'patterns.php',
+	'share.php',
+	'project-images.php',
 );
 
 foreach ( $ayan_modern_includes as $ayan_modern_file ) {

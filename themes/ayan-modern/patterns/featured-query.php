@@ -10,7 +10,7 @@
  */
 
 ?>
-<!-- wp:query {"queryId":1,"query":{"perPage":1,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"className":"is-featured-query featured-query","align":"full"} -->
+<!-- wp:query {"query":{"perPage":1,"pages":0,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false},"className":"is-featured-query featured-query","align":"full"} -->
 <div class="wp-block-query alignfull is-featured-query featured-query">
 	<!-- wp:post-template {"layout":{"type":"default"}} -->
 		<!-- wp:cover {"useFeaturedImage":true,"dimRatio":70,"overlayColor":"ink","isUserOverlayColor":true,"minHeight":70,"minHeightUnit":"vh","contentPosition":"bottom left","align":"full","className":"featured-cover","style":{"spacing":{"padding":{"top":"var:preset|spacing|70","bottom":"var:preset|spacing|70","left":"var:preset|spacing|50","right":"var:preset|spacing|50"}}}} -->

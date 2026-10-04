@@ -93,11 +93,7 @@ a{color:inherit;transition:color var(--ayan-transition)} a:hover,a:focus-visible
   .single-hero .featured-image--scale{aspect-ratio:4/3}
 
   /* Keep project artwork contained and balanced on narrow screens. */
-  .site-main--page .wp-block-post-content figure:has(> img[alt="My Fridge app screen showing organised food containers"]),
-  .site-main--page .wp-block-post-content figure:has(> img[alt="SimbaHR mascot logo"]),
-  .site-main--page .wp-block-post-content figure:has(> img[alt="PHP Strom extension logo"]),
-  .site-main--page .wp-block-post-content figure:has(> img[alt="PHPUnit Runner extension logo"]),
-  .site-main--page .wp-block-post-content figure:has(> img[alt="Last Done feature artwork with a reminder calendar and plants"]){
+  .site-main--page .wp-block-post-content .ayan-project-artwork{
     align-items:center;
     background:#17171a;
     border:1px solid #303034;
@@ -108,7 +104,7 @@ a{color:inherit;transition:color var(--ayan-transition)} a:hover,a:focus-visible
     overflow:hidden;
     padding:.75rem;
   }
-  .site-main--page .wp-block-post-content figure:has(> img[alt="My Fridge app screen showing organised food containers"]) img{
+  .site-main--page .wp-block-post-content .ayan-project-artwork--device img{
     border-radius:.75rem;
     box-shadow:0 1rem 2rem rgb(0 0 0 / 32%);
     display:block;
@@ -118,7 +114,7 @@ a{color:inherit;transition:color var(--ayan-transition)} a:hover,a:focus-visible
     object-fit:contain;
     width:auto!important;
   }
-  .site-main--page .wp-block-post-content figure:has(> img[alt="SimbaHR mascot logo"]) img{
+  .site-main--page .wp-block-post-content .ayan-project-artwork--logo img{
     display:block;
     height:auto!important;
     max-height:14rem!important;
@@ -126,8 +122,7 @@ a{color:inherit;transition:color var(--ayan-transition)} a:hover,a:focus-visible
     object-fit:contain;
     width:auto!important;
   }
-  .site-main--page .wp-block-post-content figure:has(> img[alt="PHP Strom extension logo"]) img,
-  .site-main--page .wp-block-post-content figure:has(> img[alt="PHPUnit Runner extension logo"]) img{
+  .site-main--page .wp-block-post-content .ayan-project-artwork--compact-logo img{
     display:block;
     height:auto!important;
     max-height:11rem!important;
@@ -135,7 +130,7 @@ a{color:inherit;transition:color var(--ayan-transition)} a:hover,a:focus-visible
     object-fit:contain;
     width:auto!important;
   }
-  .site-main--page .wp-block-post-content figure:has(> img[alt="Last Done feature artwork with a reminder calendar and plants"]) img{
+  .site-main--page .wp-block-post-content .ayan-project-artwork--wide img{
     border-radius:.65rem;
     display:block;
     height:auto!important;

@@ -19,15 +19,15 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function ayan_modern_query_loop_block_query_vars( $query, $block, $page ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 	$class_name = $block->attributes['className'] ?? $block->parsed_block['attrs']['className'] ?? '';
-	$query_id  = absint( $block->context['queryId'] ?? 0 );
+	$class_names = preg_split( '/\s+/', trim( $class_name ) );
 
-	if ( 1 === $query_id || str_contains( $class_name, 'is-featured-query' ) ) {
+	if ( in_array( 'is-featured-query', $class_names, true ) ) {
 		$featured_post_id = ayan_modern_get_home_featured_post_id();
 		$query['post__in']       = $featured_post_id ? array( $featured_post_id ) : array( 0 );
 		$query['posts_per_page'] = 1;
 	}
 
-	if ( 2 === $query_id && ( is_home() || is_front_page() ) ) {
+	if ( in_array( 'is-home-latest-query', $class_names, true ) && ( is_home() || is_front_page() ) ) {
 		$featured_post_id = ayan_modern_get_home_featured_post_id();
 
 		if ( $featured_post_id ) {
@@ -42,7 +42,7 @@ function ayan_modern_query_loop_block_query_vars( $query, $block, $page ) { // p
 		}
 	}
 
-	if ( 3 === $query_id || str_contains( $class_name, 'related-posts-list' ) ) {
+	if ( in_array( 'is-related-query', $class_names, true ) ) {
 		$post_id = absint( $block->context['postId'] ?? 0 );
 
 		if ( ! $post_id ) {
@@ -57,6 +57,13 @@ function ayan_modern_query_loop_block_query_vars( $query, $block, $page ) { // p
 
 			if ( ! empty( $categories ) ) {
 				$query['category__in'] = $categories;
+			} else {
+				$tags = wp_get_post_tags( $post_id, array( 'fields' => 'ids' ) );
+				if ( ! empty( $tags ) ) {
+					$query['tag__in'] = array_map( 'absint', $tags );
+				} else {
+					$query['post__in'] = array( 0 );
+				}
 			}
 
 			$query['post__not_in']   = array_values(

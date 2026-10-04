@@ -19,15 +19,15 @@
 	<!-- wp:group {"className":"share-row__actions","layout":{"type":"flex","flexWrap":"wrap","verticalAlignment":"center"},"style":{"spacing":{"blockGap":"var:preset|spacing|40"}}} -->
 	<div class="wp-block-group share-row__actions">
 		<!-- wp:paragraph {"className":"share-link share-link--x","fontSize":"small"} -->
-		<p class="share-link share-link--x has-small-font-size"><a href="#" data-share="x" rel="noopener noreferrer">X</a></p>
+		<p class="share-link share-link--x has-small-font-size"><a href="#" data-share="x" target="_blank" rel="noopener noreferrer">X</a></p>
 		<!-- /wp:paragraph -->
 
 		<!-- wp:paragraph {"className":"share-link share-link--linkedin","fontSize":"small"} -->
-		<p class="share-link share-link--linkedin has-small-font-size"><a href="#" data-share="linkedin" rel="noopener noreferrer">LinkedIn</a></p>
+		<p class="share-link share-link--linkedin has-small-font-size"><a href="#" data-share="linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
 		<!-- /wp:paragraph -->
 
 		<!-- wp:paragraph {"className":"share-link share-link--copy","fontSize":"small"} -->
-		<p class="share-link share-link--copy has-small-font-size"><button type="button" class="share-copy" data-share="copy">Copy link</button></p>
+		<p class="share-link share-link--copy has-small-font-size"><button type="button" class="share-copy" data-share="copy">Copy link</button> <span class="share-copy-status" role="status" aria-live="polite" aria-atomic="true"></span></p>
 		<!-- /wp:paragraph -->
 	</div>
 	<!-- /wp:group -->
