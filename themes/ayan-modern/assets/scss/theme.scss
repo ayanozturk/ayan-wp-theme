@@ -1,4 +1,6 @@
 @use "tokens";
+/* Native fragment navigation preserves history, focus, and modified clicks. */
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 .ayan-theme-ready{background-color:var(--ayan-paper);color:var(--ayan-ink);font-family:var(--ayan-font-body)}
 body{background-color:var(--ayan-paper);color:var(--ayan-ink)}
 a{color:inherit;transition:color var(--ayan-transition)} a:hover,a:focus-visible{color:var(--ayan-signal)}

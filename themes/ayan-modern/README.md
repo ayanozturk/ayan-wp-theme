@@ -6,9 +6,12 @@ Requires WordPress 6.6+ and PHP 8.2+.
 
 ## Build
 
+Use Node.js 24 LTS for the build tooling and interaction tests.
+
 ```bash
 npm ci
 npm run build
+npm test
 ```
 
 ## Key paths

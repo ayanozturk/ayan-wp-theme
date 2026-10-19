@@ -5,35 +5,6 @@ function initThemeReady() {
 	document.documentElement.classList.add( 'ayan-theme-ready' );
 }
 
-function initSmoothAnchors() {
-	if ( prefersReducedMotion ) {
-		return;
-	}
-
-	document.querySelectorAll( 'a[href^="#"]' ).forEach( ( anchor ) => {
-		anchor.addEventListener( 'click', ( event ) => {
-			const hash = anchor.getAttribute( 'href' );
-			if ( ! hash || hash === '#' ) {
-				return;
-			}
-
-			let target;
-			try {
-				target = document.querySelector( hash );
-			} catch ( error ) {
-				return;
-			}
-
-			if ( ! target ) {
-				return;
-			}
-
-			event.preventDefault();
-			target.scrollIntoView( { behavior: 'smooth', block: 'start' } );
-		} );
-	} );
-}
-
 function initStickyHeader() {
 	const header = document.querySelector( '.site-header' );
 	if ( ! header ) {
@@ -101,47 +72,66 @@ function copyText( text ) {
 }
 
 function copyTextWithCommand( text ) {
+	const activeElement = document.activeElement;
 	const input = document.createElement( 'textarea' );
 	input.value = text;
 	input.setAttribute( 'readonly', '' );
 	input.style.position = 'fixed';
 	input.style.opacity = '0';
 	document.body.appendChild( input );
-	input.select();
 
-	const copied = document.execCommand( 'copy' );
-	input.remove();
+	let copied = false;
+	try {
+		input.select();
+		copied = document.execCommand( 'copy' );
+	} finally {
+		input.remove();
+		if ( activeElement && typeof activeElement.focus === 'function' ) {
+			activeElement.focus( { preventScroll: true } );
+		}
+	}
+
 	return copied ? Promise.resolve() : Promise.reject( new Error( 'Copy command failed' ) );
 }
 
 function initShareRow() {
-	const row = document.querySelector( '.share-row' );
-	if ( ! row ) {
-		return;
-	}
-
 	const url = encodeURIComponent( window.location.href );
 	const title = encodeURIComponent( document.title );
-	row.querySelectorAll( '[data-share="x"]' ).forEach( ( link ) => {
-		link.href = `https://twitter.com/intent/tweet?url=${ url }&text=${ title }`;
-	} );
-	row.querySelectorAll( '[data-share="linkedin"]' ).forEach( ( link ) => {
-		link.href = `https://www.linkedin.com/sharing/share-offsite/?url=${ url }`;
-	} );
 
-	row.querySelectorAll( '[data-share="copy"], .share-copy' ).forEach( ( button ) => {
-		button.addEventListener( 'click', async () => {
-			const status = row.querySelector( '.share-copy-status' );
-			try {
-				await copyText( window.location.href );
-				if ( status ) {
-					status.textContent = strings.copySuccess || 'Link copied.';
+	document.querySelectorAll( '.share-row' ).forEach( ( row ) => {
+		row.querySelectorAll( '[data-share="x"]' ).forEach( ( link ) => {
+			link.href = `https://twitter.com/intent/tweet?url=${ url }&text=${ title }`;
+		} );
+		row.querySelectorAll( '[data-share="linkedin"]' ).forEach( ( link ) => {
+			link.href = `https://www.linkedin.com/sharing/share-offsite/?url=${ url }`;
+		} );
+
+		row.querySelectorAll( '[data-share="copy"], .share-copy' ).forEach( ( button ) => {
+			let copying = false;
+			button.addEventListener( 'click', async () => {
+				if ( copying ) {
+					return;
 				}
-			} catch ( error ) {
+
+				copying = true;
+				const status = row.querySelector( '.share-copy-status' );
 				if ( status ) {
-					status.textContent = strings.copyFailed || 'Copy failed. Select and copy the link manually.';
+					status.textContent = '';
 				}
-			}
+
+				try {
+					await copyText( window.location.href );
+					if ( status ) {
+						status.textContent = strings.copySuccess || 'Link copied.';
+					}
+				} catch ( error ) {
+					if ( status ) {
+						status.textContent = strings.copyFailed || 'Copy failed. Select and copy the link manually.';
+					}
+				} finally {
+					copying = false;
+				}
+			} );
 		} );
 	} );
 }
@@ -158,7 +148,6 @@ function initFeaturedImageMotion() {
 
 function boot() {
 	initThemeReady();
-	initSmoothAnchors();
 	initStickyHeader();
 	initReadingProgress();
 	initBackToTop();

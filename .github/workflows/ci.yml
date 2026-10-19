@@ -15,13 +15,16 @@ jobs:
           php-version: '8.2'
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
           cache-dependency-path: themes/ayan-modern/package-lock.json
       - name: Check PHP syntax
         run: find themes/ayan-modern -name '*.php' -print0 | xargs -0 -n1 php -l
       - name: Install theme build dependencies
         run: npm ci
+        working-directory: themes/ayan-modern
+      - name: Test theme interactions
+        run: npm test
         working-directory: themes/ayan-modern
       - name: Build theme assets
         run: npm run build
