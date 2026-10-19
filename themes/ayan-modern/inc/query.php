@@ -10,6 +10,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Share Query block classes with the descendants that build its queries.
+ *
+ * Post Template, pagination, and no-results blocks receive the same marker.
+ * A default empty class resets the context for unmarked nested Query blocks.
+ *
+ * @param array  $args       Block registration arguments.
+ * @param string $block_name Registered block name.
+ * @return array
+ */
+function ayan_modern_query_block_context( $args, $block_name ) {
+	if ( 'core/query' === $block_name ) {
+		$args['attributes']['className'] = array_merge(
+			$args['attributes']['className'] ?? array( 'type' => 'string' ),
+			array( 'default' => '' )
+		);
+		$args['provides_context']['ayan-modern/query-class-name'] = 'className';
+	}
+
+	if ( in_array( 'query', $args['uses_context'] ?? array(), true ) ) {
+		$args['uses_context'][] = 'ayan-modern/query-class-name';
+	}
+
+	return $args;
+}
+add_filter( 'register_block_type_args', 'ayan_modern_query_block_context', 10, 2 );
+
+/**
  * Customize Query Loop block queries.
  *
  * @param array    $query Query vars.
@@ -18,7 +45,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return array
  */
 function ayan_modern_query_loop_block_query_vars( $query, $block, $page ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
-	$class_name = $block->attributes['className'] ?? $block->parsed_block['attrs']['className'] ?? '';
+	$class_name  = $block->context['ayan-modern/query-class-name'] ?? '';
+	$class_name .= ' ' . ( $block->attributes['className'] ?? $block->parsed_block['attrs']['className'] ?? '' );
 	$class_names = preg_split( '/\s+/', trim( $class_name ) );
 
 	if ( in_array( 'is-featured-query', $class_names, true ) ) {
@@ -137,8 +165,8 @@ function ayan_modern_get_home_featured_post_id() {
  * @param WP_Query $query Query object.
  */
 function ayan_modern_pre_get_posts( $query ) {
-	if ( ! is_admin() && $query->is_main_query() ) {
-		if ( is_home() ) {
+	if ( ! is_admin() && $query->is_main_query() && ! $query->is_feed() ) {
+		if ( $query->is_home() ) {
 			$query->set( 'posts_per_page', 10 );
 
 			$featured_post_id = ayan_modern_get_home_featured_post_id();
@@ -156,7 +184,7 @@ function ayan_modern_pre_get_posts( $query ) {
 					)
 				);
 			}
-		} elseif ( is_archive() ) {
+		} elseif ( $query->is_archive() ) {
 			$query->set( 'posts_per_page', 10 );
 		}
 	}

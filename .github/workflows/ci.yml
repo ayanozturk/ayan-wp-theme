@@ -20,6 +20,8 @@ jobs:
           cache-dependency-path: themes/ayan-modern/package-lock.json
       - name: Check PHP syntax
         run: find themes/ayan-modern -name '*.php' -print0 | xargs -0 -n1 php -l
+      - name: Test theme query behavior
+        run: php themes/ayan-modern/tests/query.test.php
       - name: Install theme build dependencies
         run: npm ci
         working-directory: themes/ayan-modern

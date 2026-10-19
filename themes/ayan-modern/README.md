@@ -12,6 +12,7 @@ Use Node.js 24 LTS for the build tooling and interaction tests.
 npm ci
 npm run build
 npm test
+php tests/query.test.php
 ```
 
 ## Key paths
@@ -26,6 +27,14 @@ npm test
 | `assets/js/src/main.js` | Front-end interactions |
 | `assets/js/src/editor.js` | Post Options document panel |
 | `inc/` | Meta, bindings, query filters, schema |
+
+## Query behavior
+
+Query block classes (`is-featured-query`, `is-home-latest-query`, and
+`is-related-query`) pass through block context to Post Template, pagination,
+and no-results blocks. Nested Query blocks use their own classes. Homepage
+feature exclusions apply to the HTML listing; feeds keep their normal posts
+and configured item count.
 
 ## Patterns
 
