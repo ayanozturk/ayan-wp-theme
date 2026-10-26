@@ -33,3 +33,46 @@ jobs:
         working-directory: themes/ayan-modern
       - name: Verify committed build assets
         run: git diff --exit-code -- themes/ayan-modern/assets/css/theme.css themes/ayan-modern/assets/css/theme-rtl.css themes/ayan-modern/assets/js/theme.js themes/ayan-modern/assets/js/editor.js
+
+  wordpress-integration:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        wordpress: ['6.6', 'latest']
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: wordpress
+          MYSQL_DATABASE: wordpress_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -pwordpress"
+          --health-interval=10s --health-timeout=5s --health-retries=10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mysqli
+      - name: Install WordPress and activate theme
+        env:
+          WP_VERSION: ${{ matrix.wordpress }}
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -o "$RUNNER_TEMP/wp-cli.phar"
+          chmod +x "$RUNNER_TEMP/wp-cli.phar"
+          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
+          mkdir -p "$RUNNER_TEMP/wordpress"
+          if [ "$WP_VERSION" = latest ]; then
+            "$RUNNER_TEMP/wp-cli.phar" core download --path="$RUNNER_TEMP/wordpress"
+          else
+            "$RUNNER_TEMP/wp-cli.phar" core download --version="$WP_VERSION" --path="$RUNNER_TEMP/wordpress"
+          fi
+          "$RUNNER_TEMP/wp-cli.phar" config create --path="$RUNNER_TEMP/wordpress" --dbname=wordpress_test --dbuser=root --dbpass=wordpress --dbhost=127.0.0.1:3306
+          "$RUNNER_TEMP/wp-cli.phar" core install --path="$RUNNER_TEMP/wordpress" --url=http://localhost:8888 --title='Integration Test' --admin_user=admin --admin_password=wordpress --admin_email=admin@example.test --skip-email
+          ln -s "$GITHUB_WORKSPACE/themes/ayan-modern" "$RUNNER_TEMP/wordpress/wp-content/themes/ayan-modern"
+          "$RUNNER_TEMP/wp-cli.phar" theme activate ayan-modern --path="$RUNNER_TEMP/wordpress"
+      - name: Exercise theme in WordPress
+        run: wp-cli.phar --path="$RUNNER_TEMP/wordpress" eval-file "$GITHUB_WORKSPACE/themes/ayan-modern/tests/wordpress-integration.php"
