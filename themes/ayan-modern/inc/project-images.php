@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param array  $block         Parsed block data.
  * @return string
  */
-function ayan_modern_project_image_classes( $block_content, $block ) {
+function ayan_modern_project_image_classes( string $block_content, array $block ): string {
 	$legacy_classes = array(
 		'My Fridge app screen showing organised food containers' => 'ayan-project-artwork ayan-project-artwork--device',
 		'SimbaHR mascot logo' => 'ayan-project-artwork ayan-project-artwork--logo',
@@ -51,6 +51,6 @@ function ayan_modern_project_image_classes( $block_content, $block ) {
 		},
 		$block_content,
 		1
-	);
+	) ?? $block_content;
 }
 add_filter( 'render_block_core/image', 'ayan_modern_project_image_classes', 10, 2 );

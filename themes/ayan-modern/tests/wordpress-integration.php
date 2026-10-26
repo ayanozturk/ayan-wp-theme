@@ -8,6 +8,7 @@ function theme_integration_assert( $condition, $message ) {
 	WP_CLI::log( 'PASS: ' . $message );
 }
 
+theme_integration_assert( PHP_VERSION_ID >= 80400, 'PHP 8.4 or newer is running.' );
 theme_integration_assert( 'ayan-modern' === get_stylesheet(), 'Ayan Modern is active.' );
 
 $category = wp_insert_term( 'Integration topic', 'category' );
@@ -34,6 +35,18 @@ $latest = do_blocks( '<!-- wp:pattern {"slug":"ayan-modern/post-row"} /-->' );
 theme_integration_assert( str_contains( $latest, 'Integration source article' ), 'The home query renders other published posts.' );
 theme_integration_assert( ! str_contains( $latest, 'Integration featured article' ), 'The home query excludes the featured post.' );
 
+$description = '</script><script>example</script> & "quoted"';
+$description_filter = static fn() => $description;
+add_filter( 'pre_option_blogdescription', $description_filter );
+ob_start();
+ayan_modern_schema_markup();
+$schema_html = ob_get_clean();
+remove_filter( 'pre_option_blogdescription', $description_filter );
+theme_integration_assert( 1 === preg_match( '~<script type="application/ld\+json">(.*?)</script>~s', $schema_html, $schema_match ), 'Website schema is rendered.' );
+$website_schema = json_decode( $schema_match[1], true );
+theme_integration_assert( $description === $website_schema['description'], 'Website schema preserves special characters.' );
+theme_integration_assert( ! str_contains( $schema_match[1], '</script>' ), 'Website schema safely encodes closing script tags.' );
+
 $wp_query = new WP_Query( array( 'p' => $source_id ) );
 $post = $wp_query->post;
 setup_postdata( $post );
@@ -46,6 +59,17 @@ theme_integration_assert( ! str_contains( $related, 'Integration featured articl
 $share = do_blocks( '<!-- wp:pattern {"slug":"ayan-modern/share-row"} /-->' );
 theme_integration_assert( str_contains( $share, 'twitter.com/intent/tweet?' ) && str_contains( $share, 'linkedin.com/sharing/share-offsite/?' ), 'Share links have server-rendered destinations.' );
 theme_integration_assert( ! str_contains( $share, 'href="#"' ), 'Share links do not require JavaScript to obtain a destination.' );
+$share_tags = new WP_HTML_Tag_Processor( $share );
+$share_services = array();
+while ( $share_tags->next_tag( 'a' ) ) {
+	$service = $share_tags->get_attribute( 'data-share' );
+	if ( in_array( $service, array( 'x', 'linkedin' ), true ) ) {
+		parse_str( (string) wp_parse_url( $share_tags->get_attribute( 'href' ), PHP_URL_QUERY ), $share_args );
+		theme_integration_assert( get_permalink( $source_id ) === ( $share_args['url'] ?? null ), 'The ' . $service . ' share URL contains the complete post permalink.' );
+		$share_services[] = $service;
+	}
+}
+theme_integration_assert( 2 === count( $share_services ), 'Both social share links were inspected.' );
 
 $template = get_block_template( get_stylesheet() . '//single', 'wp_template' );
 theme_integration_assert( $template && ! empty( $template->content ), 'The single-post block template is available.' );

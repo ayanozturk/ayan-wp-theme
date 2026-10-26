@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Register custom block binding sources.
  */
-function ayan_modern_register_binding_sources() {
+function ayan_modern_register_binding_sources(): void {
 	if ( ! function_exists( 'register_block_bindings_source' ) ) {
 		return;
 	}
@@ -36,7 +36,7 @@ add_action( 'init', 'ayan_modern_register_binding_sources' );
  * @param string   $attribute_name Attribute name.
  * @return string
  */
-function ayan_modern_binding_reading_time( $source_args, $block_instance, $attribute_name ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
+function ayan_modern_binding_reading_time( $source_args, $block_instance, $attribute_name ): string { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 	unset( $source_args, $attribute_name );
 
 	$post_id = 0;

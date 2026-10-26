@@ -51,7 +51,7 @@ add_action( 'init', 'ayan_modern_register_post_meta' );
  * @param mixed $value Meta value.
  * @return string
  */
-function ayan_modern_sanitize_featured_post( $value ) {
+function ayan_modern_sanitize_featured_post( mixed $value ): string {
 	return ( '1' === (string) $value || true === $value ) ? '1' : '0';
 }
 
@@ -61,7 +61,7 @@ function ayan_modern_sanitize_featured_post( $value ) {
  * @param mixed $value Meta value.
  * @return int
  */
-function ayan_modern_sanitize_reading_time( $value ) {
+function ayan_modern_sanitize_reading_time( mixed $value ): int {
 	$minutes = absint( $value );
 
 	if ( $minutes < 1 ) {
@@ -77,7 +77,7 @@ function ayan_modern_sanitize_reading_time( $value ) {
  * @param int|null $post_id Post ID.
  * @return int
  */
-function ayan_modern_get_reading_time( $post_id = null ) {
+function ayan_modern_get_reading_time( ?int $post_id = null ): int {
 	if ( ! $post_id ) {
 		$post_id = get_the_ID();
 	}
@@ -108,7 +108,7 @@ function ayan_modern_get_reading_time( $post_id = null ) {
  * @param int|null $post_id Post ID.
  * @return string
  */
-function ayan_modern_format_reading_time( $post_id = null ) {
+function ayan_modern_format_reading_time( ?int $post_id = null ): string {
 	$minutes = ayan_modern_get_reading_time( $post_id );
 
 	return sprintf(

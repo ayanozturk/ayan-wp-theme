@@ -16,11 +16,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param array  $block         Parsed block data.
  * @return string
  */
-function ayan_modern_render_share_link( $block_content, $block ) {
+function ayan_modern_render_share_link( string $block_content, array $block ): string {
 	$class_name = $block['attrs']['className'] ?? '';
 	$class_names = preg_split( '/\s+/', trim( $class_name ) );
 
-	if ( ! in_array( 'share-link--x', $class_names, true ) && ! in_array( 'share-link--linkedin', $class_names, true ) ) {
+	$service = array_find(
+		array( 'share-link--x', 'share-link--linkedin' ),
+		static fn( string $class ): bool => in_array( $class, $class_names, true )
+	);
+
+	if ( null === $service ) {
 		return $block_content;
 	}
 
@@ -29,32 +34,26 @@ function ayan_modern_render_share_link( $block_content, $block ) {
 		return $block_content;
 	}
 
-	if ( in_array( 'share-link--x', $class_names, true ) ) {
+	if ( 'share-link--x' === $service ) {
 		$share_url = add_query_arg(
 			array(
-				'url'  => $post_url,
-				'text' => get_the_title(),
+				'url'  => rawurlencode( $post_url ),
+				'text' => rawurlencode( get_the_title() ),
 			),
 			'https://twitter.com/intent/tweet'
 		);
 	} else {
-		$share_url = add_query_arg( 'url', $post_url, 'https://www.linkedin.com/sharing/share-offsite/' );
+		$share_url = add_query_arg( 'url', rawurlencode( $post_url ), 'https://www.linkedin.com/sharing/share-offsite/' );
 	}
 
-	return preg_replace_callback(
-		'/<a\b[^>]*\bdata-share=["\'](?:x|linkedin)["\'][^>]*>/i',
-		static function ( $matches ) use ( $share_url ) {
-			return preg_replace_callback(
-				'/\bhref=(["\'])#\1/i',
-				static function ( $href_matches ) use ( $share_url ) {
-					return 'href=' . $href_matches[1] . esc_url( $share_url ) . $href_matches[1];
-				},
-				$matches[0],
-				1
-			);
-		},
-		$block_content,
-		1
-	);
+	$processor = new WP_HTML_Tag_Processor( $block_content );
+	while ( $processor->next_tag( 'a' ) ) {
+		if ( in_array( $processor->get_attribute( 'data-share' ), array( 'x', 'linkedin' ), true ) && '#' === $processor->get_attribute( 'href' ) ) {
+			$processor->set_attribute( 'href', esc_url_raw( $share_url ) );
+			break;
+		}
+	}
+
+	return $processor->get_updated_html();
 }
 add_filter( 'render_block_core/paragraph', 'ayan_modern_render_share_link', 10, 2 );

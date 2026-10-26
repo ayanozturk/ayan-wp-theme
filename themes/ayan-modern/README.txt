@@ -2,7 +2,7 @@
 Contributors: ayanozturk
 Requires at least: 6.6
 Tested up to: 6.6
-Requires PHP: 8.2
+Requires PHP: 8.4
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 Copyright: 2025 Ayan Ozturk

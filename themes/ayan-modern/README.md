@@ -2,10 +2,10 @@
 
 Ink & Signal — a full-site editing block theme for personal-brand editorial sites.
 
-Requires WordPress 6.6+ and PHP 8.2+.
+Requires WordPress 6.6+ and PHP 8.4+.
 
 GitHub Actions also runs `tests/wordpress-integration.php` on fresh WordPress
-6.6 and current installations with PHP 8.2. It exercises block templates,
+6.6 and current installations with PHP 8.4. It exercises block templates,
 queries, share links, editor assets, and post-meta REST permissions. The script
 creates posts and taxonomy terms, so run it only against a disposable test site.
 

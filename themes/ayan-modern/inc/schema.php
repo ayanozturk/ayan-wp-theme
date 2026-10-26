@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Add schema markup.
  */
-function ayan_modern_schema_markup() {
+function ayan_modern_schema_markup(): void {
 	if ( is_front_page() || is_home() ) {
 		$website = array(
 			'@context' => 'https://schema.org',
@@ -22,7 +22,7 @@ function ayan_modern_schema_markup() {
 			'description'=> get_bloginfo( 'description' ),
 		);
 
-		echo '<script type="application/ld+json">' . wp_json_encode( $website ) . '</script>';
+		echo '<script type="application/ld+json">' . wp_json_encode( $website, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ) . '</script>';
 	}
 
 	if ( ! is_single() ) {
@@ -49,6 +49,6 @@ function ayan_modern_schema_markup() {
 		$schema['image'] = get_the_post_thumbnail_url( get_the_ID(), 'full' );
 	}
 
-	echo '<script type="application/ld+json">' . wp_json_encode( $schema ) . '</script>';
+	echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT ) . '</script>';
 }
 add_action( 'wp_head', 'ayan_modern_schema_markup' );

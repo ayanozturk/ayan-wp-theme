@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param string $block_name Registered block name.
  * @return array
  */
-function ayan_modern_query_block_context( $args, $block_name ) {
+function ayan_modern_query_block_context( array $args, string $block_name ): array {
 	if ( 'core/query' === $block_name ) {
 		$args['attributes']['className'] = array_merge(
 			$args['attributes']['className'] ?? array( 'type' => 'string' ),
@@ -44,7 +44,7 @@ add_filter( 'register_block_type_args', 'ayan_modern_query_block_context', 10, 2
  * @param int      $page  Current page.
  * @return array
  */
-function ayan_modern_query_loop_block_query_vars( $query, $block, $page ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
+function ayan_modern_query_loop_block_query_vars( array $query, $block, int $page ): array { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
 	$class_name  = $block->context['ayan-modern/query-class-name'] ?? '';
 	$class_name .= ' ' . ( $block->attributes['className'] ?? $block->parsed_block['attrs']['className'] ?? '' );
 	$class_names = preg_split( '/\s+/', trim( $class_name ) );
@@ -115,7 +115,7 @@ add_filter( 'query_loop_block_query_vars', 'ayan_modern_query_loop_block_query_v
  *
  * @return int
  */
-function ayan_modern_get_home_featured_post_id() {
+function ayan_modern_get_home_featured_post_id(): int {
 	static $featured_post_id = null;
 
 	if ( null !== $featured_post_id ) {
@@ -164,7 +164,7 @@ function ayan_modern_get_home_featured_post_id() {
  *
  * @param WP_Query $query Query object.
  */
-function ayan_modern_pre_get_posts( $query ) {
+function ayan_modern_pre_get_posts( $query ): void {
 	if ( ! is_admin() && $query->is_main_query() && ! $query->is_feed() ) {
 		if ( $query->is_home() ) {
 			$query->set( 'posts_per_page', 10 );

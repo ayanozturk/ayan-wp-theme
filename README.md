@@ -1,6 +1,6 @@
 # WordPress Development Environment
 
-A Docker-based WordPress development environment with the **Ayan Modern** full-site editing block theme. The theme requires WordPress 6.6 or newer and PHP 8.2 or newer.
+A Docker-based WordPress development environment with the **Ayan Modern** full-site editing block theme. The theme requires WordPress 6.6 or newer and PHP 8.4 or newer.
 
 ## Quick Start
 
